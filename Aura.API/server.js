@@ -2,14 +2,17 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
+
+// Importación de rutas
 const authRoutes = require('./src/routes/authRoutes');
 const adminRoutes = require('./src/routes/adminRoutes');
+const areaDestinoRoutes = require('./src/routes/areaDestinoRoutes');
+const terminoRespuestaRoutes = require('./src/routes/terminoRespuestaRoutes');
+
 const app = express();
 
 // --- CONFIGURACIÓN DE MIDDLEWARES ---
 
-// Configuración de CORS dinámica
-// Permitimos el puerto 5173 (Vite) y activamos credentials para el manejo de tokens/cookies
 app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:5173',
   credentials: true,
@@ -18,10 +21,29 @@ app.use(cors({
 }));
 
 app.use(express.json());
+
+// --- REGISTRO DE RUTAS ---
+/**
+ * IMPORTANTE: El orden de las rutas en Express es jerárquico.
+ * Debemos registrar primero las rutas específicas para que adminRoutes (la más general)
+ * no intercepte las peticiones dirigidas a módulos independientes.
+ */
+
+// 1. Rutas específicas del panel de administración
+app.use('/api/admin/areas-destino', areaDestinoRoutes);
+app.use('/api/admin/terminos-respuesta', terminoRespuestaRoutes);
+
+// 2. Ruta general de administración (debe ir después de las específicas)
 app.use('/api/admin', adminRoutes);
+
+// 3. Otras rutas del sistema
+app.use('/api/auth', authRoutes);
+
+// --- RUTA DE SALUD ---
+app.get('/health', (req, res) => res.send('Aura API Operativa 🟢'));
+
 // --- CONEXIÓN A BASE DE DATOS ---
 
-// Verificación de URI de MongoDB
 if (!process.env.MONGO_URI) {
   console.error('❌ ERROR: MONGO_URI no definida en el archivo .env');
   process.exit(1);
@@ -33,12 +55,7 @@ mongoose.connect(process.env.MONGO_URI)
     console.error('❌ Error crítico al conectar a la DB:', err.message);
   });
 
-// --- RUTAS ---
-
-app.use('/api/auth', authRoutes);
-
-app.get('/health', (req, res) => res.send('Aura API Operativa 🟢'));
-
+// --- LANZAMIENTO DEL SERVIDOR ---
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -4,7 +4,10 @@ import Login from './auth/Login.jsx';
 import AdminPages from './pages/admin/AdminPages.jsx';
 import JuzgadosPage from './pages/juzgados/JuzgadosPage.jsx'; 
 import AccionadosPage from './pages/accionado/AccionadosPage.jsx';
-// Componente Footer optimizado
+import TerminoRespuestaPage from './pages/terminorespuesta/TerminoRespuestaPage.jsx';
+// IMPORTACIÓN DEL NUEVO MAESTRO: ÁREA DESTINO
+import AreaDestinoPage from './pages/areadestino/AreaDestinoPage.jsx';
+
 const GlobalFooter = () => (
   <footer className="aura-mini-footer">
     <p>
@@ -110,17 +113,17 @@ function App() {
         <div className="sidebar-content">
           <div className="brand-section">
             <div className="brand-logo">AURA</div>
-            <div className="brand-subtitle">TUTELAS FOSCAL 2026</div>
+            <div className="brand-subtitle">FOSCAL</div>
           </div>
           
           <nav className="nav-menu">
             <button className={`nav-item ${tab === 'inicio' ? 'active' : ''}`} onClick={() => setTab('inicio')}>
-              <span className="nav-icon">🏠</span> <span className="nav-text">Inicio</span>
+              <span className="nav-icon"></span> <span className="nav-text">Inicio</span>
             </button>
             
             {(userRole === 'ADMIN' || userRole === 'TECNICO') && (
               <button className={`nav-item ${tab === 'est' ? 'active' : ''}`} onClick={() => setTab('est')}>
-                <span className="nav-icon">📊</span> <span className="nav-text">Tutelas</span>
+                <span className="nav-icon"></span> <span className="nav-text">Tutelas</span>
               </button>
             )}
 
@@ -131,7 +134,7 @@ function App() {
                     className={`nav-item ${tab.startsWith('m-') ? 'active' : ''}`} 
                     onClick={() => setIsMaestrosOpen(!isMaestrosOpen)}
                   >
-                    <span className="nav-icon">📁</span> 
+                    <span className="nav-icon"></span> 
                     <span className="nav-text">Maestros</span>
                     <span className={`arrow-submenu ${isMaestrosOpen ? 'rotate' : ''}`}>▾</span>
                   </button>
@@ -142,24 +145,39 @@ function App() {
                         className={`sub-nav-item ${tab === 'm-juzgados' ? 'sub-active' : ''}`} 
                         onClick={() => setTab('m-juzgados')}
                       >
-                         ⚖️ Juzgados
+                          Juzgados
                       </button>
-                      {/* NUEVO BOTÓN DE ACCIONADOS */}
+                      
                       <button 
                         className={`sub-nav-item ${tab === 'm-accionados' ? 'sub-active' : ''}`} 
                         onClick={() => setTab('m-accionados')}
                       >
-                         👤 Accionados
+                          Accionados
+                      </button>
+
+                      <button 
+                        className={`sub-nav-item ${tab === 'm-terminos' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-terminos')}
+                      >
+                          Términos
+                      </button>
+
+                      {/* NUEVO BOTÓN: ÁREAS DESTINO */}
+                      <button 
+                        className={`sub-nav-item ${tab === 'm-areas' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-areas')}
+                      >
+                          Áreas Destino
                       </button>
                     </div>
                   )}
                 </div>
 
                 <button className={`nav-item ${tab === 'aud' ? 'active' : ''}`} onClick={() => setTab('aud')}>
-                  <span className="nav-icon">🛡️</span> <span className="nav-text">Auditoría</span>
+                  <span className="nav-icon"></span> <span className="nav-text">Auditoría</span>
                 </button>
                 <button className={`nav-item ${tab === 'admin' ? 'active' : ''}`} onClick={() => setTab('admin')}>
-                  <span className="nav-icon">⚙️</span> <span className="nav-text">Administración</span>
+                  <span className="nav-icon"></span> <span className="nav-text">Administración</span>
                 </button>
               </>
             )}
@@ -210,9 +228,7 @@ function App() {
               <div className="aura-home-view">
                 <header className="innovative-hero">
                     <div className="hero-content">
-                        <span className="hero-badge">Panel de Control FOSCAL 2026</span>
                         <h1 className="hero-title">Hola, <span className="text-gradient">{currentUserName}</span></h1>
-                        <p className="hero-subtitle">Bienvenido a la plataforma centralizada de gestión de Tutelas.</p>
                     </div>
                 </header>
 
@@ -267,17 +283,29 @@ function App() {
                 </div>
             )}
 
-            {/* VISTA DE MAESTRO JUZGADOS */}
+            {/* VISTAS DE MAESTROS */}
             {tab === 'm-juzgados' && userRole === 'ADMIN' && (
                 <div className="admin-view-wrapper fade-in">
                     <JuzgadosPage />
                 </div>
             )}
 
-            {/* NUEVA VISTA DE MAESTRO ACCIONADOS */}
             {tab === 'm-accionados' && userRole === 'ADMIN' && (
                 <div className="admin-view-wrapper fade-in">
                     <AccionadosPage />
+                </div>
+            )}
+
+            {tab === 'm-terminos' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <TerminoRespuestaPage />
+                </div>
+            )}
+
+            {/* RENDERIZADO DE LA VISTA ÁREAS DESTINO */}
+            {tab === 'm-areas' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <AreaDestinoPage />
                 </div>
             )}
           </div>

@@ -36,7 +36,6 @@ const JuzgadosDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar }) => {
             <label>Nombre del Despacho Judicial</label>
             <input 
               name="nombre" 
-              placeholder="Ingrese el nombre oficial del juzgado"
               value={nombre} 
               onChange={(e) => setNombre(e.target.value)} 
               required 

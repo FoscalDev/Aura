@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import './AccionadosPage.css'; // Asegúrate de tener este CSS o usar el de la carpeta
+import './AccionadosPage.css'; 
 import AccionadosDialogo from './AccionadosDialogo.jsx';
 
-// Llamada limpia desde el .env (Igual que en Juzgados)
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 const ENDPOINT_ACCIONADOS = `${API_BASE_URL}/admin/accionados`;
 
@@ -18,8 +17,6 @@ const AccionadosPage = () => {
 
   const fetchAccionados = async () => {
     try {
-      // Nota: He usado 'aura_token' porque es el que mencionaste anteriormente, 
-      // si en Juzgados usas 'token', cámbialo aquí para que sean iguales.
       const token = localStorage.getItem('aura_token'); 
       if (!token) return console.error("No hay token en el storage");
 
@@ -90,7 +87,7 @@ const AccionadosPage = () => {
       <header className="admin-page-header">
         <div>
           <h2 className="admin-title">Accionados</h2>
-          <p className="admin-subtitle">Gestión de entidades y personas accionadas - FOSCAL 2026</p>
+          <p className="admin-subtitle">FOSCAL 2026</p>
         </div>
         <button className="aura-btn-add" onClick={() => { setAccionadoEditando(null); setIsModalOpen(true); }}>
           + Nuevo Accionado

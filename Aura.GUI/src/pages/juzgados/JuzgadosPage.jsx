@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './JuzgadosPage.css'; 
 import JuzgadosDialogo from './JuzgadosDialogo.jsx';
 
-// Llamada limpia desde el .env
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 const ENDPOINT_JUZGADOS = `${API_BASE_URL}/admin/juzgados`;
 
@@ -88,7 +87,7 @@ const JuzgadosPage = () => {
       <header className="admin-page-header">
         <div>
             <h2 className="admin-title">Juzgados</h2>
-            <p className="admin-subtitle">Gestión de despachos judiciales - FOSCAL 2026</p>
+            <p className="admin-subtitle">FOSCAL 2026</p>
         </div>
         <button className="aura-btn-add" onClick={() => { setJuzgadoEditando(null); setIsModalOpen(true); }}>
           + Nuevo Juzgado

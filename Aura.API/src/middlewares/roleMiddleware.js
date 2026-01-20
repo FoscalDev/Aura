@@ -1,23 +1,25 @@
-const jwt = require('jsonwebtoken');
-
-exports.checkRole = (rolesPermitidos) => {
+const checkRole = (rolesPermitidos = []) => {
   return (req, res, next) => {
-    const authHeader = req.headers.authorization;
-    if (!authHeader) return res.status(401).json({ message: 'No hay token' });
-
-    const token = authHeader.split(' ')[1];
-
-    try {
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      req.user = decoded;
-
-      if (!rolesPermitidos.includes(decoded.role)) {
-        return res.status(403).json({ message: 'Acceso denegado: No tienes permisos suficientes.' });
-      }
-
-      next();
-    } catch (error) {
-      res.status(401).json({ message: 'Token inválido' });
+    if (!req.user || !req.user.role) {
+      return res.status(401).json({
+        message: 'Usuario no autenticado o sin rol'
+      });
     }
+
+    const userRole = req.user.role.toUpperCase();
+    const rolesPermitidosUpper = rolesPermitidos.map(r => r.toUpperCase());
+
+    if (!rolesPermitidosUpper.includes(userRole)) {
+      return res.status(403).json({
+        message: 'Acceso denegado: permisos insuficientes'
+      });
+    }
+
+    next();
   };
+};
+
+module.exports = {
+  checkRole,
+  admin: checkRole(['ADMIN'])
 };

@@ -1,19 +1,25 @@
 const jwt = require('jsonwebtoken');
+const User = require('../models/User');
 
-const auth = (req, res, next) => {
-  const token = req.header('x-auth-token');
-
-  if (!token) {
-    return res.status(401).json({ msg: 'No hay token, permiso no válido' });
-  }
-
+module.exports = async (req, res, next) => {
   try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+      return res.status(401).json({ message: 'Token no proporcionado' });
+    }
+
+    const token = authHeader.split(' ')[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
+
+    const user = await User.findById(decoded.id).select('-password');
+    if (!user) {
+      return res.status(401).json({ message: 'Usuario no válido' });
+    }
+
+    req.user = user; 
     next();
   } catch (error) {
-    res.status(401).json({ msg: 'Token no es válido o ha expirado' });
+    return res.status(401).json({ message: 'Token inválido' });
   }
 };
-
-module.exports = auth;
