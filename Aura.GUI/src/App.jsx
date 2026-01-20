@@ -5,8 +5,10 @@ import AdminPages from './pages/admin/AdminPages.jsx';
 import JuzgadosPage from './pages/juzgados/JuzgadosPage.jsx'; 
 import AccionadosPage from './pages/accionado/AccionadosPage.jsx';
 import TerminoRespuestaPage from './pages/terminorespuesta/TerminoRespuestaPage.jsx';
-// IMPORTACIÓN DEL NUEVO MAESTRO: ÁREA DESTINO
 import AreaDestinoPage from './pages/areadestino/AreaDestinoPage.jsx';
+import PeticionesPage from './pages/peticion/PeticionesPage.jsx';
+import PoblacionEspecialPage from './pages/poblacionespecial/PoblacionEspecialPage.jsx';
+import OrganizacionPage from './pages/organizacion/OrganizacionPage.jsx';
 
 const GlobalFooter = () => (
   <footer className="aura-mini-footer">
@@ -118,12 +120,12 @@ function App() {
           
           <nav className="nav-menu">
             <button className={`nav-item ${tab === 'inicio' ? 'active' : ''}`} onClick={() => setTab('inicio')}>
-              <span className="nav-icon"></span> <span className="nav-text">Inicio</span>
+              <span className="nav-icon">🏠</span> <span className="nav-text">Inicio</span>
             </button>
             
             {(userRole === 'ADMIN' || userRole === 'TECNICO') && (
               <button className={`nav-item ${tab === 'est' ? 'active' : ''}`} onClick={() => setTab('est')}>
-                <span className="nav-icon"></span> <span className="nav-text">Tutelas</span>
+                <span className="nav-icon">⚖️</span> <span className="nav-text">Tutelas</span>
               </button>
             )}
 
@@ -134,7 +136,7 @@ function App() {
                     className={`nav-item ${tab.startsWith('m-') ? 'active' : ''}`} 
                     onClick={() => setIsMaestrosOpen(!isMaestrosOpen)}
                   >
-                    <span className="nav-icon"></span> 
+                    <span className="nav-icon">⚙️</span> 
                     <span className="nav-text">Maestros</span>
                     <span className={`arrow-submenu ${isMaestrosOpen ? 'rotate' : ''}`}>▾</span>
                   </button>
@@ -145,39 +147,58 @@ function App() {
                         className={`sub-nav-item ${tab === 'm-juzgados' ? 'sub-active' : ''}`} 
                         onClick={() => setTab('m-juzgados')}
                       >
-                          Juzgados
+                        Juzgados
                       </button>
                       
                       <button 
                         className={`sub-nav-item ${tab === 'm-accionados' ? 'sub-active' : ''}`} 
                         onClick={() => setTab('m-accionados')}
                       >
-                          Accionados
+                        Accionados
                       </button>
 
                       <button 
                         className={`sub-nav-item ${tab === 'm-terminos' ? 'sub-active' : ''}`} 
                         onClick={() => setTab('m-terminos')}
                       >
-                          Términos
+                        Términos
                       </button>
 
-                      {/* NUEVO BOTÓN: ÁREAS DESTINO */}
                       <button 
                         className={`sub-nav-item ${tab === 'm-areas' ? 'sub-active' : ''}`} 
                         onClick={() => setTab('m-areas')}
                       >
-                          Áreas Destino
+                        Áreas Destino
+                      </button>
+
+                      <button 
+                        className={`sub-nav-item ${tab === 'm-peticiones' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-peticiones')}
+                      >
+                        Peticiones
+                      </button>
+
+                      <button 
+                        className={`sub-nav-item ${tab === 'm-poblacionespecial' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-poblacionespecial')}
+                      >
+                        Poblacion Especial
+                      </button>
+                          <button 
+                        className={`sub-nav-item ${tab === 'm-organizacion' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-organizacion')}
+                      >
+                        Organización
                       </button>
                     </div>
                   )}
                 </div>
 
                 <button className={`nav-item ${tab === 'aud' ? 'active' : ''}`} onClick={() => setTab('aud')}>
-                  <span className="nav-icon"></span> <span className="nav-text">Auditoría</span>
+                  <span className="nav-icon">📋</span> <span className="nav-text">Auditoría</span>
                 </button>
                 <button className={`nav-item ${tab === 'admin' ? 'active' : ''}`} onClick={() => setTab('admin')}>
-                  <span className="nav-icon"></span> <span className="nav-text">Administración</span>
+                  <span className="nav-icon">👤</span> <span className="nav-text">Administración</span>
                 </button>
               </>
             )}
@@ -189,29 +210,29 @@ function App() {
         <div className="top-bar-container">
             <div className="user-section-wrapper">
                 <div 
-                className={`user-profile-banner ${isUserMenuOpen ? 'banner-active' : ''}`} 
-                onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  className={`user-profile-banner ${isUserMenuOpen ? 'banner-active' : ''}`} 
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                 >
-                <div className="avatar-container">
-                    {userData?.picture && !imgError ? (
-                    <img 
-                        src={userData.picture} 
-                        alt="profile" 
-                        className="avatar-img" 
-                        onError={() => setImgError(true)} 
-                    />
-                    ) : (
-                    <div className="avatar-circle">
-                        {currentUserName[0].toUpperCase()}
-                    </div>
-                    )}
-                    <span className="online-indicator"></span>
-                </div>
-                <div className="user-details">
-                    <span className="user-name-text">{currentUserName}</span>
-                    <span className={`user-role-badge role-${userRole.toLowerCase()}`}>{userRole}</span>
-                </div>
-                <span className={`arrow-icon ${isUserMenuOpen ? 'rotate' : ''}`}>▼</span>
+                  <div className="avatar-container">
+                      {userData?.picture && !imgError ? (
+                      <img 
+                          src={userData.picture} 
+                          alt="profile" 
+                          className="avatar-img" 
+                          onError={() => setImgError(true)} 
+                      />
+                      ) : (
+                      <div className="avatar-circle">
+                          {currentUserName[0].toUpperCase()}
+                      </div>
+                      )}
+                      <span className="online-indicator"></span>
+                  </div>
+                  <div className="user-details">
+                      <span className="user-name-text">{currentUserName}</span>
+                      <span className={`user-role-badge role-${userRole.toLowerCase()}`}>{userRole}</span>
+                  </div>
+                  <span className={`arrow-icon ${isUserMenuOpen ? 'rotate' : ''}`}>▼</span>
                 </div>
                 {isUserMenuOpen && (
                 <div className="user-dropdown">
@@ -302,12 +323,29 @@ function App() {
                 </div>
             )}
 
-            {/* RENDERIZADO DE LA VISTA ÁREAS DESTINO */}
             {tab === 'm-areas' && userRole === 'ADMIN' && (
                 <div className="admin-view-wrapper fade-in">
                     <AreaDestinoPage />
                 </div>
             )}
+
+            {tab === 'm-peticiones' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <PeticionesPage />
+                </div>
+            )}
+
+            {tab === 'm-poblacionespecial' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <PoblacionEspecialPage />
+                </div>
+            )}
+              {tab === 'm-organizacion' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <OrganizacionPage />
+                </div>
+            )}
+             
           </div>
         </div>
       </main>

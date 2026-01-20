@@ -1,6 +1,5 @@
 const TerminoRespuesta = require('../models/TerminoRespuesta');
 
-// Obtener todos los términos
 exports.getTerminos = async (req, res) => {
   try {
     const terminos = await TerminoRespuesta.find().sort({ nombre: 1 });
@@ -10,7 +9,6 @@ exports.getTerminos = async (req, res) => {
   }
 };
 
-// Crear nuevo término
 exports.createTermino = async (req, res) => {
   try {
     const { nombre } = req.body;
@@ -33,7 +31,6 @@ exports.createTermino = async (req, res) => {
   }
 };
 
-// Actualizar término
 exports.updateTermino = async (req, res) => {
   try {
     const { id } = req.params;
@@ -66,7 +63,6 @@ exports.updateTermino = async (req, res) => {
   }
 };
 
-// Toggle Estado
 exports.toggleEstado = async (req, res) => {
   try {
     const termino = await TerminoRespuesta.findById(req.params.id);

@@ -8,6 +8,9 @@ const authRoutes = require('./src/routes/authRoutes');
 const adminRoutes = require('./src/routes/adminRoutes');
 const areaDestinoRoutes = require('./src/routes/areaDestinoRoutes');
 const terminoRespuestaRoutes = require('./src/routes/terminoRespuestaRoutes');
+const peticionesRoutes = require('./src/routes/peticionesRoutes')
+const poblacionEspecialRoutes = require('./src/routes/poblacionEspecialRoutes')
+const organizacionRoutes = require('./src/routes/organizacionRoutes')
 
 const app = express();
 
@@ -32,6 +35,10 @@ app.use(express.json());
 // 1. Rutas específicas del panel de administración
 app.use('/api/admin/areas-destino', areaDestinoRoutes);
 app.use('/api/admin/terminos-respuesta', terminoRespuestaRoutes);
+app.use('/api/admin/peticion', peticionesRoutes);
+app.use('/api/admin/poblacionespacial',poblacionEspecialRoutes);
+app.use('/api/admin/organizacion',organizacionRoutes);
+
 
 // 2. Ruta general de administración (debe ir después de las específicas)
 app.use('/api/admin', adminRoutes);
