@@ -8,48 +8,34 @@ const authRoutes = require('./src/routes/authRoutes');
 const adminRoutes = require('./src/routes/adminRoutes');
 const areaDestinoRoutes = require('./src/routes/areaDestinoRoutes');
 const terminoRespuestaRoutes = require('./src/routes/terminoRespuestaRoutes');
-const peticionesRoutes = require('./src/routes/peticionesRoutes')
-const poblacionEspecialRoutes = require('./src/routes/poblacionEspecialRoutes')
-const organizacionRoutes = require('./src/routes/organizacionRoutes')
+const peticionesRoutes = require('./src/routes/peticionesRoutes');
+const poblacionEspecialRoutes = require('./src/routes/poblacionEspecialRoutes');
+const organizacionRoutes = require('./src/routes/organizacionRoutes');
+const tipoidentificacionRoutes = require('./src/routes/tipoIdentificacionRoutes'); 
 
 const app = express();
 
-// --- CONFIGURACIÓN DE MIDDLEWARES ---
-
+// Configuración de CORS
 app.use(cors({
   origin: process.env.CLIENT_URL || 'http://localhost:5173',
   credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'], 
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.use(express.json());
 
-// --- REGISTRO DE RUTAS ---
-/**
- * IMPORTANTE: El orden de las rutas en Express es jerárquico.
- * Debemos registrar primero las rutas específicas para que adminRoutes (la más general)
- * no intercepte las peticiones dirigidas a módulos independientes.
- */
-
-// 1. Rutas específicas del panel de administración
 app.use('/api/admin/areas-destino', areaDestinoRoutes);
 app.use('/api/admin/terminos-respuesta', terminoRespuestaRoutes);
 app.use('/api/admin/peticion', peticionesRoutes);
-app.use('/api/admin/poblacionespacial',poblacionEspecialRoutes);
-app.use('/api/admin/organizacion',organizacionRoutes);
+app.use('/api/admin/poblacionespacial', poblacionEspecialRoutes);
+app.use('/api/admin/organizacion', organizacionRoutes);
+app.use('/api/admin/tipo-identificacion', tipoidentificacionRoutes); 
 
-
-// 2. Ruta general de administración (debe ir después de las específicas)
 app.use('/api/admin', adminRoutes);
-
-// 3. Otras rutas del sistema
 app.use('/api/auth', authRoutes);
 
-// --- RUTA DE SALUD ---
 app.get('/health', (req, res) => res.send('Aura API Operativa 🟢'));
-
-// --- CONEXIÓN A BASE DE DATOS ---
 
 if (!process.env.MONGO_URI) {
   console.error('❌ ERROR: MONGO_URI no definida en el archivo .env');
@@ -61,8 +47,6 @@ mongoose.connect(process.env.MONGO_URI)
   .catch(err => {
     console.error('❌ Error crítico al conectar a la DB:', err.message);
   });
-
-// --- LANZAMIENTO DEL SERVIDOR ---
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {

@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './OrganizacionDialogo.css';
+
+const API_BASE_URL = import.meta.env.VITE_API_URL;
+const ENDPOINT_TIPOS = `${API_BASE_URL}/admin/tipo-identificacion`;
+
 const OrganizacionDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar }) => {
   const [formData, setFormData] = useState({
     codigo: '',
@@ -8,6 +12,8 @@ const OrganizacionDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar }) => 
     numeroIdentificacion: '',
     codigoHabilitacion: ''
   });
+  
+  const [tiposIdentificacion, setTiposIdentificacion] = useState([]);
   const [guardando, setGuardando] = useState(false);
 
   useEffect(() => {
@@ -19,8 +25,25 @@ const OrganizacionDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar }) => 
         numeroIdentificacion: dataParaEditar?.numeroIdentificacion || '',
         codigoHabilitacion: dataParaEditar?.codigoHabilitacion || ''
       });
+      fetchTipos(); 
     }
   }, [isOpen, dataParaEditar]);
+
+  const fetchTipos = async () => {
+    try {
+      const token = localStorage.getItem('aura_token');
+      const response = await fetch(ENDPOINT_TIPOS, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        // Solo mostrar tipos activos
+        setTiposIdentificacion(Array.isArray(data) ? data.filter(t => t.estado !== false) : []);
+      }
+    } catch (error) {
+      console.error("Error cargando tipos maestros:", error);
+    }
+  };
 
   if (!isOpen) return null;
 
@@ -31,12 +54,28 @@ const OrganizacionDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar }) => 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    // Validación básica antes de enviar
+    if (!formData.tipoIdentificacion) {
+      alert("Por favor seleccione un tipo de identificación");
+      return;
+    }
+
     setGuardando(true);
     try {
-      await onGuardar({
-        ...formData,
-        codigo: formData.codigo.trim().toUpperCase()
-      });
+      // Limpiamos los datos antes de enviar
+      const datosAEnviar = {
+        codigo: formData.codigo.trim().toUpperCase(),
+        nombre: formData.nombre.trim(),
+        tipoIdentificacion: formData.tipoIdentificacion,
+        numeroIdentificacion: formData.numeroIdentificacion.trim(),
+        codigoHabilitacion: formData.codigoHabilitacion?.trim() || ''
+      };
+
+      await onGuardar(datosAEnviar);
+    } catch (error) {
+      // Si el error viene de la petición fallida
+      console.error("Error al guardar organización:", error);
     } finally {
       setGuardando(false);
     }
@@ -49,31 +88,73 @@ const OrganizacionDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar }) => 
           <h3>{dataParaEditar ? 'Editar Organización' : 'Registrar Nueva Organización'}</h3>
           <button type="button" className="close-x" onClick={onClose}>&times;</button>
         </div>
+        
         <form onSubmit={handleSubmit} className="modal-form">
           <div className="form-grid">
             <div className="input-group">
-              <label>Código Interno</label>
-              <input name="codigo" value={formData.codigo} onChange={handleChange} required className="aura-input" />
+              <label>Código</label>
+              <input 
+                name="codigo" 
+                value={formData.codigo} 
+                onChange={handleChange} 
+                required 
+                className="aura-input" 
+                autoComplete="off"
+              />
             </div>
+            
             <div className="input-group">
-              <label>Nombre de la Organización</label>
-              <input name="nombre" value={formData.nombre} onChange={handleChange} required className="aura-input" />
+              <label>Nombre</label>
+              <input 
+                name="nombre" 
+                value={formData.nombre} 
+                onChange={handleChange} 
+                required 
+                className="aura-input" 
+                autoComplete="off"
+              />
             </div>
+            
             <div className="input-group">
               <label>Tipo Identificación</label>
-              <select name="tipoIdentificacion" value={formData.tipoIdentificacion} onChange={handleChange} required className="aura-input">
+              <select 
+                name="tipoIdentificacion" 
+                value={formData.tipoIdentificacion} 
+                onChange={handleChange} 
+                required 
+                className="aura-input"
+              >
                 <option value="">Seleccione...</option>
-                <option value="NIT">NIT</option>
-                <option value="CC">Cédula de Ciudadanía</option>
+                {tiposIdentificacion.map((tipo) => (
+                  <option key={tipo._id} value={tipo.nombre}>
+                    {tipo.nombre}
+                  </option>
+                ))}
               </select>
             </div>
+            
             <div className="input-group">
               <label>Número Identificación</label>
-              <input name="numeroIdentificacion" value={formData.numeroIdentificacion} onChange={handleChange} required className="aura-input" />
+              <input 
+                name="numeroIdentificacion" 
+                value={formData.numeroIdentificacion} 
+                onChange={handleChange} 
+                required 
+                className="aura-input" 
+                autoComplete="off"
+              />
             </div>
+            
             <div className="input-group full-width">
               <label>Código de Habilitación</label>
-              <input name="codigoHabilitacion" value={formData.codigoHabilitacion} onChange={handleChange} className="aura-input" placeholder="" />
+              <input 
+                name="codigoHabilitacion" 
+                value={formData.codigoHabilitacion} 
+                onChange={handleChange} 
+                className="aura-input" 
+                placeholder="Opcional"
+                autoComplete="off"
+              />
             </div>
           </div>
 

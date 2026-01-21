@@ -1,178 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
 
-:root {
-  --sidebar-blue-top: #219EBC;
-  --sidebar-blue-bottom: #0054A6;
-  --green-bright: #adff2f;
-  --green-main: #8DC63F;
-  --green-dark: #4b7e0d;
-  --aura-orange: #F7941E;
-  --text-main: #0f172a;
-  --sidebar-width: 260px;
-  --sidebar-collapsed-width: 0px; 
-}
-
-body {
-  margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: #f8fafc;
-  color: var(--text-main);
-  overflow: hidden;
-}
-
-/* ==========================================================================
-   ESTILOS DEL LOGIN (CORREGIDOS CON COLORES AURA)
-   ========================================================================== */
-
-.login-page {
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  /* Fondo cambiado para hacer match con el Sidebar del proyecto */
-  background: radial-gradient(circle at center, var(--sidebar-blue-top) 0%, var(--sidebar-blue-bottom) 100%);
-  position: relative;
-  overflow: hidden;
-}
-
-/* Círculos decorativos de fondo con desenfoque (Aura effects) */
-.login-page::before, .login-page::after {
-  content: '';
-  position: absolute;
-  width: 600px;
-  height: 600px;
-  border-radius: 50%;
-  filter: blur(100px);
-  z-index: 0;
-  opacity: 0.25;
-}
-
-.login-page::before {
-  background: var(--green-bright);
-  top: -15%;
-  left: -10%;
-}
-
-.login-page::after {
-  background: var(--green-main);
-  bottom: -15%;
-  right: -10%;
-}
-
-.login-card {
-  background: rgba(255, 255, 255, 0.9);
-  backdrop-filter: blur(25px);
-  padding: 50px;
-  border-radius: 40px;
-  width: 90%;
-  max-width: 420px;
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  z-index: 10;
-  text-align: center;
-  animation: auraFadeIn 0.8s ease-out;
-}
-
-.login-header h2 {
-  font-size: 3.5rem;
-  font-weight: 900;
-  background: linear-gradient(120deg, var(--sidebar-blue-bottom), var(--sidebar-blue-top));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin: 0;
-  letter-spacing: -3px;
-}
-
-.login-header p {
-  color: #64748b;
-  font-weight: 600;
-  margin-bottom: 35px;
-  letter-spacing: 1px;
-  font-size: 0.9rem;
-  text-transform: uppercase;
-}
-
-.input-group {
-  text-align: left;
-  margin-bottom: 25px;
-}
-
-.input-group label {
-  display: block;
-  font-size: 11px;
-  font-weight: 800;
-  color: var(--sidebar-blue-bottom);
-  margin-bottom: 8px;
-  margin-left: 5px;
-  letter-spacing: 1.5px;
-}
-
-.input-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-
-.input-wrapper span {
-  position: absolute;
-  left: 15px;
-  font-size: 18px;
-}
-
-.input-wrapper input {
-  width: 100%;
-  padding: 14px 15px 14px 45px;
-  border-radius: 18px;
-  border: 2px solid #e2e8f0;
-  background: white;
-  font-size: 15px;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-
-.input-wrapper input:focus {
-  outline: none;
-  border-color: var(--sidebar-blue-top);
-  box-shadow: 0 0 0 4px rgba(33, 158, 188, 0.1);
-}
-
-.login-btn {
-  width: 100%;
-  padding: 18px;
-  border-radius: 20px;
-  border: none;
-  background: linear-gradient(135deg, var(--sidebar-blue-top), var(--sidebar-blue-bottom));
-  color: white;
-  font-size: 15px;
-  font-weight: 800;
-  cursor: pointer;
-  margin-top: 10px;
-  box-shadow: 0 10px 25px rgba(0, 84, 166, 0.3);
-  transition: all 0.3s ease;
-  letter-spacing: 1px;
-}
-
-.login-btn:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 15px 35px rgba(0, 84, 166, 0.4);
-  filter: brightness(1.1);
-}
-
-.login-footer {
-  margin-top: 30px;
-}
-
-.login-footer p {
-  font-size: 13px;
-  color: #64748b;
-}
-
-.login-footer a {
-  color: var(--sidebar-blue-top);
-  text-decoration: none;
-  font-weight: 700;
-}
 
 /* ==========================================================================
    ESTILOS DEL SIDEBAR Y DASHBOARD
@@ -379,4 +205,339 @@ body {
   margin: 10px 0;
   min-height: 50px;
 }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
 
+:root {
+  --sidebar-blue-top: #219EBC;
+  --sidebar-blue-bottom: #0054A6;
+  --foscal-blue-deep: #0d2a45; /* Azul del fondo loader */
+  --green-bright: #adff2f;
+  --green-main: #8DC63F;
+  --green-dark: #4b7e0d;
+  --text-main: #0f172a;
+  --sidebar-width: 260px;
+}
+
+/* ==========================================================================
+   1. RESET & BASE
+   ========================================================================== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #f8fafc;
+  color: var(--text-main);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   2. LOGIN PAGE (FONDO AZUL PROFUNDO COMO EL LOADER)
+   ========================================================================== */
+.login-page {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Fondo radial idéntico a tu pantalla de carga */
+  background: radial-gradient(circle at center, #1a4f7c 0%, #0d2a45 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Resplandor Aura en el login */
+.login-page::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(141, 198, 63, 0.15) 0%, transparent 70%);
+  top: -10%;
+  left: -5%;
+  filter: blur(80px);
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 45px;
+  border-radius: 40px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  text-align: center;
+  animation: auraFadeIn 0.8s ease-out;
+}
+
+.login-header h2 {
+  font-size: 3.2rem;
+  font-weight: 900;
+  background: linear-gradient(120deg, var(--green-main), var(--sidebar-blue-top));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  letter-spacing: -2px;
+}
+
+/* Botón de Google */
+.google-login-wrapper {
+  margin: 25px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.login-instruction {
+  color: #64748b;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+
+/* ==========================================================================
+   5. ANIMACIONES
+   ========================================================================== */
+@keyframes auraFadeIn {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes auraPulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+/* Adaptación para pantallas pequeñas */
+@media (max-width: 480px) {
+  .login-card { padding: 30px 20px; }
+  .login-header h2 { font-size: 2.5rem; }
+}
+
+:root {
+  --sidebar-blue-top: #219EBC;
+  --sidebar-blue-bottom: #0054A6;
+  --foscal-blue-deep: #0d2a45; /* Azul del fondo loader */
+  --foscal-action-blue: #004a99; /* Azul de botones de acción */
+  --green-bright: #adff2f;
+  --green-main: #8DC63F; /* Verde Lima Jandres */
+  --green-dark: #4b7e0d;
+  --text-main: #0f172a;
+  --sidebar-width: 260px;
+}
+
+/* ==========================================================================
+   1. RESET & BASE
+   ========================================================================== */
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #f8fafc;
+  color: var(--text-main);
+  overflow: hidden;
+}
+
+/* ==========================================================================
+   2. SIDEBAR & MENU (COLORES VIBRANTES)
+   ========================================================================== */
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  /* Gradiente más saturado para evitar palidez */
+  background: linear-gradient(165deg, #0082c8 0%, var(--foscal-action-blue) 100%);
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px;
+  box-shadow: 10px 0 40px rgba(0, 30, 60, 0.3);
+  z-index: 100;
+  position: relative;
+  transition: all 0.4s ease;
+}
+
+.brand-section { 
+  text-align: center; 
+  margin-bottom: 45px; 
+}
+
+.brand-logo { 
+  font-size: 2rem; 
+  font-weight: 900; 
+  color: #ffffff; 
+  letter-spacing: -1.5px; 
+  text-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.nav-menu { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 12px; 
+}
+
+/* ITEM DEL MENÚ - Mayor contraste */
+.nav-item {
+  padding: 14px 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.1); 
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff; 
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(5px);
+}
+
+/* ITEM ACTIVO - Estilo Píldora Blanca */
+.nav-item.active {
+  background: #ffffff !important;
+  color: var(--foscal-action-blue) !important;
+  font-weight: 800;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  transform: scale(1.05);
+  border: none;
+}
+
+/* ==========================================================================
+   3. PERFIL DE USUARIO (VERDE LIMA)
+   ========================================================================== */
+.user-section-wrapper { 
+  position: absolute; 
+  top: 30px; 
+  right: 40px; 
+  z-index: 200; 
+}
+
+.user-profile-banner {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  /* Verde Lima vibrante de la interfaz */
+  background: linear-gradient(135deg, var(--green-main) 0%, #7ab035 100%);
+  padding: 10px 22px 10px 10px;
+  border-radius: 50px;
+  box-shadow: 0 10px 25px rgba(141, 198, 63, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  color: white;
+  cursor: pointer;
+}
+
+.avatar-circle {
+  width: 40px;
+  height: 40px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: var(--green-dark);
+}
+
+/* ==========================================================================
+   4. LOGIN & LOADER (FONDO PROFUNDO)
+   ========================================================================== */
+.login-page, .aura-loader-container {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #1a4f7c 0%, #0d2a45 100%); /* Fondo Loader */
+  position: relative;
+  overflow: hidden;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  padding: 45px;
+  border-radius: 40px;
+  width: 90%;
+  max-width: 400px;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.4);
+  z-index: 10;
+  text-align: center;
+  animation: auraFadeIn 0.8s ease-out;
+}
+
+/* ==========================================================================
+   5. ANIMACIONES
+   ========================================================================== */
+@keyframes auraFadeIn {
+  from { opacity: 0; transform: translateY(25px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes auraPulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+/* ==========================================================================
+   DISEÑO DE LOGO CIRCULAR Y TEXTO AZUL
+   ========================================================================== */
+
+/* Contenedor del logo con animación de flotación */
+.login-logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  animation: float 3s ease-in-out infinite; /* Movimiento suave */
+}
+
+/* Logo Circular */
+.login-logo-img {
+  width: 150px;       /* Tamaño ajustado para ser circular */
+  height: 150px;      /* Debe ser igual al ancho */
+  object-fit: cover;  /* Asegura que la imagen llene el círculo */
+  border-radius: 50%; /* Hace la imagen circular */
+  
+  /* Borde decorativo con el verde de AURA */
+  border: 4px solid #8DC63F; 
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+  background-color: white; /* Fondo blanco interno por si el png tiene transparencia */
+}
+
+/* Texto de Gestión - Cambiado a AZUL */
+.login-subtitle {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: #16406b !important; /* Azul institucional de FOSCAL */
+  margin-top: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+/* Animación de movimiento (Flotación) */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px); /* Sube 10 pixeles */
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+/* Ajuste adicional para la tarjeta de login si es necesario */
+.login-card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 30px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+  text-align: center;
+}

@@ -61,8 +61,15 @@ const Login = ({ onLogin }) => {
       <div className="login-page">
         <div className="login-card">
           <div className="login-header">
-            <h2>AURA</h2>
-            <p>Gestión TUTELAS FOSCAL</p>
+            {/* ✅ LOGO REEMPLAZANDO EL TEXTO AURA */}
+            <div className="login-logo-container">
+              <img 
+                src="/logoaura.png" 
+                alt="AURA Logo" 
+                className="login-logo-img"
+              />
+            </div>
+            <p className="login-subtitle">Gestión TUTELAS FOSCAL</p>
           </div>
 
           <div className="login-body">

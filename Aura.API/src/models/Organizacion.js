@@ -16,7 +16,7 @@ const OrganizacionSchema = new mongoose.Schema({
     tipoIdentificacion: {
         type: String,
         required: [true, 'El tipo de identificación es obligatorio'],
-        enum: ['NIT', 'CC'] // Solo permite estos valores según tu select
+        trim: true
     },
     numeroIdentificacion: {
         type: String,

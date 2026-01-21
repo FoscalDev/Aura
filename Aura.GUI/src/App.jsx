@@ -9,6 +9,8 @@ import AreaDestinoPage from './pages/areadestino/AreaDestinoPage.jsx';
 import PeticionesPage from './pages/peticion/PeticionesPage.jsx';
 import PoblacionEspecialPage from './pages/poblacionespecial/PoblacionEspecialPage.jsx';
 import OrganizacionPage from './pages/organizacion/OrganizacionPage.jsx';
+import TipoIdentificacionPage from './pages/tipoidentificacion/TipoIdentificacionPage.jsx';
+import EtniaPage from './pages/etnia/EtniaPage.jsx';
 
 const GlobalFooter = () => (
   <footer className="aura-mini-footer">
@@ -78,21 +80,30 @@ function App() {
     setImgError(false);
   };
 
-  if (isLoading) {
-    return (
-      <div className="aura-loader-container">
-        <div className="aura-loader-content">
-          <div className="aura-logo-animated">AURA</div>
-          <h2 className="aura-welcome-text">Cargando...</h2>
-          <div className="aura-progress-bar">
-            <div className="aura-progress-fill"></div>
-          </div>
-          <p className="aura-loading-sub">Sincronizando con sistema Tutelas FOSCAL</p>
+if (isLoading) {
+  return (
+    <div className="aura-loader-container">
+      <div className="aura-loader-content">
+        <div className="aura-logo-wrapper">
+          <img 
+            src="/logoaura.png" 
+            alt="AURA Logo" 
+            className="aura-loader-logo" 
+          />
         </div>
-        <GlobalFooter />
+        
+        <h2 className="aura-welcome-text">Cargando...</h2>
+        
+        <div className="aura-progress-bar">
+          <div className="aura-progress-fill"></div>
+        </div>
+        
+        <p className="aura-loading-sub">Sincronizando con sistema Tutelas FOSCAL</p>
       </div>
-    );   
-  }
+      <GlobalFooter />
+    </div>
+  );   
+}
 
   if (!isLoggedIn) {
     return (
@@ -120,12 +131,12 @@ function App() {
           
           <nav className="nav-menu">
             <button className={`nav-item ${tab === 'inicio' ? 'active' : ''}`} onClick={() => setTab('inicio')}>
-              <span className="nav-icon">🏠</span> <span className="nav-text">Inicio</span>
+              <span className="nav-icon"></span> <span className="nav-text">Inicio</span>
             </button>
             
             {(userRole === 'ADMIN' || userRole === 'TECNICO') && (
               <button className={`nav-item ${tab === 'est' ? 'active' : ''}`} onClick={() => setTab('est')}>
-                <span className="nav-icon">⚖️</span> <span className="nav-text">Tutelas</span>
+                <span className="nav-icon"></span> <span className="nav-text">Tutelas</span>
               </button>
             )}
 
@@ -136,7 +147,7 @@ function App() {
                     className={`nav-item ${tab.startsWith('m-') ? 'active' : ''}`} 
                     onClick={() => setIsMaestrosOpen(!isMaestrosOpen)}
                   >
-                    <span className="nav-icon">⚙️</span> 
+                    <span className="nav-icon"></span> 
                     <span className="nav-text">Maestros</span>
                     <span className={`arrow-submenu ${isMaestrosOpen ? 'rotate' : ''}`}>▾</span>
                   </button>
@@ -190,15 +201,29 @@ function App() {
                       >
                         Organización
                       </button>
+                        <button 
+                        className={`sub-nav-item ${tab === 'm-tipoidentificacion' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-tipoidentificacion')}
+                      >
+                        Tipo Identificacion
+                      </button>
+                      <button 
+                        className={`sub-nav-item ${tab === 'm-etnia' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-etnia')}
+                      >
+                        Etnia
+                      </button>
+                    
+                    
                     </div>
                   )}
                 </div>
 
                 <button className={`nav-item ${tab === 'aud' ? 'active' : ''}`} onClick={() => setTab('aud')}>
-                  <span className="nav-icon">📋</span> <span className="nav-text">Auditoría</span>
+                  <span className="nav-icon"></span> <span className="nav-text">Auditoría</span>
                 </button>
                 <button className={`nav-item ${tab === 'admin' ? 'active' : ''}`} onClick={() => setTab('admin')}>
-                  <span className="nav-icon">👤</span> <span className="nav-text">Administración</span>
+                  <span className="nav-icon"></span> <span className="nav-text">Administración</span>
                 </button>
               </>
             )}
@@ -243,55 +268,69 @@ function App() {
             </div>
         </div>
 
-        <div className="content-scroll-area">
-          <div className="view-content-container">
-            {tab === 'inicio' && (
-              <div className="aura-home-view">
-                <header className="innovative-hero">
-                    <div className="hero-content">
-                        <h1 className="hero-title">Hola, <span className="text-gradient">{currentUserName}</span></h1>
-                    </div>
-                </header>
+<div className="content-scroll-area">
+  <div className="view-content-container">
+    {tab === 'inicio' && (
+      <div className="aura-home-view">
+        <header className="innovative-hero">
+  <div className="hero-content">
+    <h1 className="hero-title">
+      Hola, <span className="text-gradient-menu">{currentUserName}</span>
+    </h1>
+    <p className="hero-subtitle">Bienvenido al ecosistema digital de FOSCAL.</p>
+  </div>
+</header>
 
-                {userRole === 'LECTOR' ? (
-                  <div className="access-denied-container">
-                    <div className="access-denied-card">
-                      <div className="denied-icon-wrapper">
-                        <span className="denied-icon">🔒</span>
-                      </div>
-                      <h2>Acceso Restringido</h2>
-                      <p>Hola <strong>{currentUserName}</strong>. Tu perfil no tiene permisos asignados para este módulo.</p>
-                    </div>
+        {userRole === 'LECTOR' ? (
+          <div className="access-denied-container">
+            <div className="access-denied-card">
+              <div className="denied-icon-wrapper">
+                <span className="denied-icon">🔒</span>
+              </div>
+              <h2>Acceso Restringido</h2>
+              <p>Hola <strong>{currentUserName}</strong>. Tu perfil actualmente tiene un rol de <span>LECTOR</span> y no posee permisos de escritura.</p>
+            </div>
+          </div>
+        ) : (
+          <div className="dashboard-grid-modern">
+            <div className="luxury-card" onClick={() => setTab('est')}>
+              <div className="card-visual icon-blue">📊</div>
+              <div className="luxury-content">
+                <h3>Estadísticas Orion</h3>
+                <p>Analítica avanzada y visualización de datos en tiempo real.</p>
+                <div className="luxury-footer">
+                  <span className="luxury-link">Explorar módulo</span>
+                  <span className="arrow">→</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="luxury-card" onClick={() => setTab('docs')}>
+              <div className="card-visual icon-green">📁</div>
+              <div className="luxury-content">
+                <h3>Gestión Documental</h3>
+                <p>Repositorio seguro para expedientes y documentos institucionales.</p>
+                <div className="luxury-footer">
+                  <span className="luxury-link">Acceder ahora</span>
+                  <span className="arrow">→</span>
+                </div>
+              </div>
+            </div>
+
+            {userRole === 'ADMIN' && (
+              <div className="luxury-card" onClick={() => setTab('aud')}>
+                <div className="card-visual icon-mixed">🛡️</div>
+                <div className="luxury-content">
+                  <h3>Auditoría</h3>
+                  <p>Trazabilidad completa y seguridad de protocolos internos.</p>
+                  <div className="luxury-footer">
+                    <span className="luxury-link">Ver bitácora</span>
+                    <span className="arrow">→</span>
                   </div>
-                ) : (
-                  <div className="dashboard-grid-modern">
-                    <div className="luxury-card card-blue" onClick={() => setTab('est')}>
-                      <div className="luxury-icon-box">📊</div>
-                      <div className="luxury-content">
-                        <h3>Estadísticas Orion</h3>
-                        <p>Analítica avanzada y visualización de datos en tiempo real.</p>
-                        <span className="luxury-link">Explorar módulo →</span>
-                      </div>
-                    </div>
-                    <div className="luxury-card card-green">
-                      <div className="luxury-icon-box">📁</div>
-                      <div className="luxury-content">
-                        <h3>Gestión Documental</h3>
-                        <p>Repositorio seguro para expedientes y documentos institucionales.</p>
-                        <span className="luxury-link">Acceder ahora →</span>
-                      </div>
-                    </div>
-                    {userRole === 'ADMIN' && (
-                      <div className="luxury-card card-mixed" onClick={() => setTab('aud')}>
-                        <div className="luxury-icon-box">🛡️</div>
-                        <div className="luxury-content">
-                          <h3>Auditoría</h3>
-                          <p>Trazabilidad completa y seguridad de protocolos internos.</p>
-                          <span className="luxury-link">Ver bitácora →</span>
-                        </div>
-                      </div>
-                    )}
-                  </div>
+                </div>
+              </div>
+            )}
+          </div>
                 )}
                 <GlobalFooter />
               </div>
@@ -343,6 +382,17 @@ function App() {
               {tab === 'm-organizacion' && userRole === 'ADMIN' && (
                 <div className="admin-view-wrapper fade-in">
                     <OrganizacionPage />
+                </div>
+            )}
+             
+              {tab === 'm-tipoidentificacion' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <TipoIdentificacionPage />
+                </div>
+            )}
+              {tab === 'm-etnia' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <EtniaPage />
                 </div>
             )}
              
