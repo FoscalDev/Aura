@@ -33,7 +33,6 @@ const EtniaDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar }) => {
       setGuardando(false);
     }
   };
-
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>

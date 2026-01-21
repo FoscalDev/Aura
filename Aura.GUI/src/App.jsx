@@ -84,27 +84,44 @@ if (isLoading) {
   return (
     <div className="aura-loader-container">
       <div className="aura-loader-content">
-        <div className="aura-logo-wrapper">
-          <img 
-            src="/logoaura.png" 
-            alt="AURA Logo" 
-            className="aura-loader-logo" 
-          />
+        <div className="aura-logo-viewport">
+          {/* Sistema de 5 anillos concéntricos para profundidad */}
+          <div className="aura-ring ring-1"></div>
+          <div className="aura-ring ring-2"></div>
+          <div className="aura-ring ring-3"></div>
+          <div className="aura-ring ring-4"></div>
+          <div className="aura-ring ring-5"></div>
+          
+          <div className="aura-logo-wrapper">
+            <img 
+              src="/logoaura.png" 
+              alt="AURA Logo" 
+              className="aura-loader-logo" 
+            />
+          </div>
         </div>
         
-        <h2 className="aura-welcome-text">Cargando...</h2>
-        
-        <div className="aura-progress-bar">
-          <div className="aura-progress-fill"></div>
+        <div className="aura-text-group">
+          <h2 className="aura-welcome-text">Iniciando Sistema</h2>
+          
+          <div className="aura-progress-wrapper">
+            <div className="aura-progress-bar-minimal">
+              {/* La animación ahora es puramente CSS para evitar errores de JS */}
+              <div className="aura-progress-fill-auto"></div>
+            </div>
+            
+            <div className="aura-status-line">
+              <span className="aura-pulse-dot"></span>
+            </div>
+          </div>
+          
+          <p className="aura-loading-sub">Sincronizando con sistema Tutelas FOSCAL</p>
         </div>
-        
-        <p className="aura-loading-sub">Sincronizando con sistema Tutelas FOSCAL</p>
       </div>
       <GlobalFooter />
     </div>
   );   
 }
-
   if (!isLoggedIn) {
     return (
       <div className="login-wrapper-fixed">

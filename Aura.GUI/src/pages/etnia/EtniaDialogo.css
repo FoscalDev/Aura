@@ -348,14 +348,14 @@
 
 /* Cancelar – Verde EXACTO */
 .btn-secondary {
-  background: linear-gradient(135deg, #84f700, #7FB82D);
+  background: linear-gradient(135deg, #00f73e, #7FB82D);
   border: none;
   color: #ffffff;
-  box-shadow: 0 3px 10px rgba(139, 146, 129, 0.4);
+  box-shadow: 0 3px 10px rgba(136, 199, 49, 0.4);
 }
 
 .btn-secondary:hover {
-  background: linear-gradient(135deg, #97D84A, #8cee04);
+  background: linear-gradient(135deg, #345012, #8cee04);
   box-shadow: 0 6px 14px rgba(142, 216, 45, 0.5);
   transform: translateY(-1px);
 }
@@ -418,14 +418,14 @@
 
 /* Cancelar – Verde más opaco */
 .btn-secondary {
-  background: linear-gradient(135deg, #7ED321, #6BB51B);
+  background: linear-gradient(135deg, #027a20, #6BB51B);
   color: #ffffff;
   box-shadow: 0 4px 12px rgba(107, 181, 27, 0.45);
 }
 
 .btn-secondary:hover {
-  background: linear-gradient(135deg, #8AE234, #6BB51B);
-  box-shadow: 0 6px 16px rgba(107, 181, 27, 0.55);
+  background: linear-gradient(135deg, #027a20, #6BB51B);
+  box-shadow: 0 6px 16px rgba(27, 171, 181, 0.55);
 }
 
 /* Confirmar – Azul más sólido */

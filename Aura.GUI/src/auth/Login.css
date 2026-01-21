@@ -423,7 +423,8 @@ body {
   align-items: center;
   gap: 15px;
   /* Verde Lima vibrante de la interfaz */
-  background: linear-gradient(135deg, var(--green-main) 0%, #7ab035 100%);
+    background: linear-gradient(135deg, #057db4, #498108);
+
   padding: 10px 22px 10px 10px;
   border-radius: 50px;
   box-shadow: 0 10px 25px rgba(141, 198, 63, 0.4);

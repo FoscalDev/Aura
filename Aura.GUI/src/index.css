@@ -584,3 +584,134 @@ body,.app-container {  background: #e5e7eb !important; /* Gris profesional, no p
 .aura-home-view .luxury-card:hover .arrow {
   transform: translateX(8px);
 }
+/* ==========================================================================
+   AURA PREMIUM LOADER - VERSIÓN ULTRA LIMPIA (SIN PULSE DOT)
+   ========================================================================== */
+
+:root {
+  --aura-bg-deep: #0d2a45;
+  --aura-bg-light: #1a3a5a;
+  --aura-green: #8DC63F;
+  --aura-cyan: #49D1C3;
+}
+
+.aura-loader-container {
+  background: var(--aura-bg-deep);
+  background-image: radial-gradient(circle at center, var(--aura-bg-light) 0%, var(--aura-bg-deep) 100%);
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+/* VIEWPORT ORBITAL */
+.aura-logo-viewport {
+  position: relative;
+  width: 380px; 
+  height: 380px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 35px;
+  animation: auraUnifiedFloat 4s ease-in-out infinite;
+}
+
+.aura-loader-logo {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 4px solid var(--aura-green);
+  z-index: 10;
+  box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+}
+
+/* SISTEMA DE ANILLOS CONCÉNTRICOS */
+.aura-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  will-change: transform;
+}
+
+.ring-1 { width: 190px; height: 190px; border-top: 3px solid var(--aura-green); animation: rotateClockwise 3s linear infinite; }
+.ring-2 { width: 230px; height: 230px; border-right: 2.5px solid var(--aura-cyan); animation: rotateCounterClockwise 5s linear infinite; }
+.ring-3 { width: 270px; height: 270px; border-bottom: 2px solid var(--aura-green); animation: rotateClockwise 8s linear infinite; opacity: 0.5; }
+.ring-4 { width: 310px; height: 310px; border-left: 1.5px solid var(--aura-cyan); animation: rotateCounterClockwise 12s linear infinite; opacity: 0.3; }
+.ring-5 { width: 350px; height: 350px; border-top: 1px solid var(--aura-green); animation: rotateClockwise 15s linear infinite; opacity: 0.15; }
+
+/* CONTENEDOR DE TEXTO Y BARRA */
+.aura-text-group {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.aura-welcome-text {
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 7px;
+  font-size: 1.6rem;
+  font-weight: 300;
+  margin: 10px 0 30px 0;
+}
+
+.aura-progress-wrapper {
+  width: 320px;
+}
+
+.aura-progress-bar-minimal {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.aura-progress-fill-auto {
+  height: 100%;
+  background: linear-gradient(90deg, var(--aura-green), var(--aura-cyan));
+  box-shadow: 0 0 15px rgba(73, 209, 195, 0.5);
+  width: 0%; 
+  animation: auraLoadingAuto 6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+/* MARGEN AJUSTADO TRAS ELIMINAR EL PUNTO */
+.aura-loading-sub {
+  margin-top: 25px; /* Espacio limpio entre barra y subtítulo */
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.65rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* ANIMACIONES */
+@keyframes rotateClockwise {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+@keyframes rotateCounterClockwise {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to { transform: translate(-50%, -50%) rotate(-360deg); }
+}
+
+@keyframes auraUnifiedFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+@keyframes auraLoadingAuto {
+  0% { width: 0%; }
+  100% { width: 92%; }
+}
