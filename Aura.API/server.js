@@ -15,6 +15,8 @@ const tipoidentificacionRoutes = require('./src/routes/tipoIdentificacionRoutes'
 const etniaRoutes = require('./src/routes/etniaRoutes');
 const tipoAfiliadoRoutes = require('./src/routes/tipoAfiliadoRoutes');
 const municipioRoutes = require('./src/routes/municipioRoutes');
+const decisionPrimeraInstanciaRoutes = require('./src/routes/decisionPrimeraInstanciaRoutes');
+const paisRoutes = require('./src/routes/paisRoutes');
 
 const app = express();
 
@@ -37,6 +39,8 @@ app.use('/api/admin/tipo-identificacion', tipoidentificacionRoutes);
 app.use('/api/admin/etnia', etniaRoutes);
 app.use('/api/admin/tipo-afiliado', tipoAfiliadoRoutes);
 app.use('/api/admin/municipio', municipioRoutes);
+app.use('/api/admin/decision-primera-instancia', decisionPrimeraInstanciaRoutes);
+app.use('/api/admin/pais', paisRoutes);
 
 app.use('/api/admin', adminRoutes);
 app.use('/api/auth', authRoutes);

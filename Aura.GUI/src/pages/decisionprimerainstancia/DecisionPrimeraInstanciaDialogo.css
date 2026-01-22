@@ -1,0 +1,432 @@
+/* ===============================
+   RESET & BASE
+================================ */
+.modal-content *,
+.modal-content *::before,
+.modal-content *::after {
+  box-sizing: border-box;
+}
+
+/* ===============================
+   OVERLAY
+================================ */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  padding: 20px;
+  animation: fadeIn 0.3s ease;
+}
+
+/* ===============================
+   MODAL CONTAINER
+================================ */
+.modal-content {
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  border-radius: 28px;
+  padding: 28px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.25);
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  animation: modalPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+}
+
+/* ===============================
+   HEADER
+================================ */
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 22px;
+}
+
+.modal-header h3 {
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+}
+
+.modal-subtitle-top {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-top: 4px;
+}
+
+.close-x {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close-x:hover {
+  background: #e2e8f0;
+}
+
+/* ===============================
+   FORM
+================================ */
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 6px;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 11px 14px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #f8fafc;
+  font-size: 13.5px;
+  transition: all 0.2s ease;
+}
+
+.input-group input:focus,
+.input-group select:focus {
+  outline: none;
+  border-color: #0054A6;
+  box-shadow: 0 0 0 3px rgba(0, 84, 166, 0.15);
+}
+
+/* ===============================
+   PERMISSIONS
+================================ */
+.permissions-section {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+}
+
+.section-subtitle {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #94a3b8;
+  font-weight: 800;
+}
+
+.perm-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 14px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #f1f5f9;
+}
+
+.perm-info {
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+/* ===============================
+   SWITCH
+================================ */
+.aura-switch {
+  width: 34px;
+  height: 18px;
+  background: #cbd5e1;
+  border-radius: 20px;
+  position: relative;
+}
+
+.aura-switch::after {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: white;
+  border-radius: 50%;
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  transition: 0.3s;
+}
+
+.aura-switch.active {
+  background: #0054A6;
+}
+
+.aura-switch.active::after {
+  left: 19px;
+}
+
+/* ===============================
+   ACTION BUTTONS (MEJORADOS)
+================================ */
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+/* Cancelar */
+.btn-secondary {
+  flex: 1;
+  padding: 9px 16px;
+  border-radius: 18px;
+  border: none;
+  background: #f1f5f9;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-secondary:hover {
+  background: #e2e8f0;
+  transform: translateY(-1px);
+}
+
+/* Confirmar */
+.btn-primary {
+  flex: 1.3;
+  padding: 9px 16px;
+  border-radius: 18px;
+  border: none;
+  background: linear-gradient(135deg, #0054A6, #003d7a);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 16px rgba(0, 84, 166, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(0, 84, 166, 0.45);
+}
+
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===============================
+   ANIMATIONS
+================================ */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* ===============================
+   MOBILE
+================================ */
+@media (max-width: 480px) {
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+}
+/* ===============================
+   ACTION BUTTONS – AURA IDENTITY (NARROW)
+================================ */
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-top: 16px;
+}
+
+/* Botón Cancelar – Ultra discreto */
+.btn-secondary {
+  padding: 6px 10px;              /* MÁS ANGOSTO */
+  min-width: 90px;                /* Control visual */
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  color: #475569;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: #f8fafc;
+  color: #1e293b;
+  border-color: #cbd5e1;
+}
+
+/* Botón Confirmar – AURA compacto */
+.btn-primary {
+  padding: 6px 12px;              /* MÁS ANGOSTO */
+  min-width: 100px;               /* Un poco más que cancelar */
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(135deg, #0054A6, #0b3c74);
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(0, 84, 166, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0, 84, 166, 0.45);
+}
+
+/* Estados deshabilitados */
+.btn-primary:disabled,
+.btn-secondary:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  box-shadow: none;
+  transform: none;
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .modal-actions {
+    flex-direction: column-reverse;
+    gap: 8px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    min-width: unset;
+  }
+}
+/* ===============================
+   ACTION BUTTON COLORS – EXACTOS IMAGEN REAL
+================================ */
+
+/* Cancelar – Verde EXACTO */
+.btn-secondary {
+  background: linear-gradient(135deg, #00f73e, #7FB82D);
+  border: none;
+  color: #ffffff;
+  box-shadow: 0 3px 10px rgba(136, 199, 49, 0.4);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #345012, #8cee04);
+  box-shadow: 0 6px 14px rgba(142, 216, 45, 0.5);
+  transform: translateY(-1px);
+}
+
+/* Confirmar – Azul EXACTO */
+.btn-primary {
+  background: linear-gradient(135deg, #0B6FB8, #15dcff);
+  box-shadow: 0 3px 10px rgba(11, 111, 184, 0.4);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #297ebb, #4784a1);
+  box-shadow: 0 6px 16px rgba(11, 111, 184, 0.5);
+  transform: translateY(-1px);
+}
+/* =====================================================
+   AJUSTE DE OPACIDAD Y CONTRASTE – DIALOGO
+   (Más sólido, menos pálido)
+===================================================== */
+
+/* ---------- INPUTS MÁS GRIS (NO PÁLIDO) ---------- */
+.input-group input,
+.input-group select {
+  background: #eef2f6;            /* antes #f8fafc */
+  border-color: #d1d9e0;
+  color: #1e293b;
+}
+
+.input-group input::placeholder {
+  color: #6b7280;
+}
+
+/* Focus más firme */
+.input-group input:focus,
+.input-group select:focus {
+  border-color: #0054A6;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(0, 84, 166, 0.2);
+}
+
+/* ---------- SECCIONES INTERNAS ---------- */
+.permissions-section {
+  background: #eef2f6;
+  border-color: #d1d9e0;
+}
+
+.perm-item {
+  background: #ffffff;
+  border-color: #e5eaf0;
+}
+
+/* ---------- OVERLAY UN POCO MÁS PROFUNDO ---------- */
+.modal-overlay {
+  background: rgba(15, 23, 42, 0.68);
+}
+
+/* =====================================================
+   BOTONES – MENOS NEÓN, MÁS CORPORATIVO
+===================================================== */
+
+/* Cancelar – Verde más opaco */
+.btn-secondary {
+  background: linear-gradient(135deg, #027a20, #6BB51B);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(107, 181, 27, 0.45);
+}
+
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #027a20, #6BB51B);
+  box-shadow: 0 6px 16px rgba(27, 171, 181, 0.55);
+}
+
+/* Confirmar – Azul más sólido */
+

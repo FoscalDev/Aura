@@ -13,6 +13,8 @@ import TipoIdentificacionPage from './pages/tipoidentificacion/TipoIdentificacio
 import EtniaPage from './pages/etnia/EtniaPage.jsx';
 import TipoAfiliadoPage from './pages/tipoafiliado/TipoAfiliadoPage.jsx';
 import MunicipioPage from './pages/municipios/MunicipioPage.jsx';
+import DecisionPrimeraInstanciaPage from './pages/decisionprimerainstancia/DecisionPrimeraInstanciaPage.jsx';
+import PaisPage from './pages/pais/PaisPage.jsx';
 
 const GlobalFooter = () => (
   <footer className="aura-mini-footer">
@@ -244,6 +246,18 @@ if (isLoading) {
                       >
                         Municipio
                       </button>
+                        <button 
+                        className={`sub-nav-item ${tab === 'm-decisionprimeraistancia' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-decisionprimeraistancia')}
+                      >
+                        Decision Primera Instancia
+                      </button>
+                         <button 
+                        className={`sub-nav-item ${tab === 'm-pais' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-pais')}
+                      >
+                        Pais
+                      </button>
                     
                     
                     </div>
@@ -434,6 +448,16 @@ if (isLoading) {
             {tab === 'm-municipio' && userRole === 'ADMIN' && (
                 <div className="admin-view-wrapper fade-in">
                     <MunicipioPage />
+                </div>
+            )}
+             {tab === 'm-decisionprimeraistancia' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <DecisionPrimeraInstanciaPage />
+                </div>
+            )}
+              {tab === 'm-pais' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <PaisPage />
                 </div>
             )}
              

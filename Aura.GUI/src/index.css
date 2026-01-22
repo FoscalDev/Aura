@@ -715,3 +715,167 @@ body,.app-container {  background: #e5e7eb !important; /* Gris profesional, no p
   0% { width: 0%; }
   100% { width: 92%; }
 }
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+:root {
+  /* Tus variables originales exactas */
+  --sidebar-blue-top: #219EBC;
+  --sidebar-blue-bottom: #0054A6;
+  --green-bright: #1c1d1b;
+  --green-main: #acda6d;
+  --green-dark: #4b7e0d;
+  --aura-orange: #1ed7f7;
+  --text-main: #0f172a;
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 0px;
+  /* Optimización de velocidad */
+  --aura-transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- OPTIMIZACIÓN DE MOTOR (GPU) --- */
+.sidebar, .nav-item, .sub-menu, .luxury-card, .user-profile-banner {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: #f1f5f9;
+  color: var(--text-main);
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  height: 100vh;
+  transition: transform var(--aura-transition);
+}
+
+/* --- SIDEBAR MEJORADO (SIN LAG) --- */
+.sidebar {
+  width: var(--sidebar-width);
+  background: linear-gradient(165deg, var(--sidebar-blue-top) 0%, var(--sidebar-blue-bottom) 100%);
+  display: flex;
+  flex-direction: column;
+  padding: 40px 0; /* Padding lateral movido adentro para el scroll */
+  box-shadow: 10px 0 35px rgba(0, 84, 166, 0.2);
+  z-index: 100;
+  position: relative;
+  transition: width var(--aura-transition);
+  overflow: hidden;
+}
+
+.sidebar-content {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- SUBMENÚ (ELIMINADO EL BLUR PESADO) --- */
+.sub-menu {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  background: rgba(0, 0, 0, 0.12); /* Sutil y rápido */
+  margin: 0 10px;
+  border-radius: 12px;
+  transition: max-height 0.3s ease-out, opacity 0.2s ease;
+}
+
+.group-open .sub-menu {
+  max-height: 800px;
+  opacity: 1;
+  padding: 10px 0;
+  margin-bottom: 12px;
+}
+
+/* --- NAV ITEMS (TU DISEÑO ORIGINAL) --- */
+.nav-item {
+  padding: 14px 20px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.85);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: none;
+  white-space: nowrap;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.15);
+  transform: translateX(5px);
+  color: white;
+}
+
+.nav-item.active {
+  background: white;
+  color: var(--sidebar-blue-bottom);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+/* --- DASHBOARD Y CARDS (TU DISEÑO "HOLA") --- */
+.main-view {
+  flex: 1;
+  padding: 60px;
+  background: linear-gradient(135deg, #eef2f6 0%, #dfe7f0 100%);
+  position: relative;
+  overflow-y: auto;
+}
+
+.innovative-hero {
+  background: linear-gradient(165deg, var(--sidebar-blue-top) 0%, var(--sidebar-blue-bottom) 100%) !important;
+  padding: 50px;
+  border-radius: 40px;
+  box-shadow: 0 20px 50px rgba(0, 30, 60, 0.2) !important;
+  margin-bottom: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+.luxury-card {
+  background: white !important;
+  border-radius: 35px;
+  padding: 35px;
+  /* Animación elástica pero optimizada */
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.05) !important;
+}
+
+.luxury-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 25px 50px rgba(0, 84, 166, 0.15) !important;
+}
+
+/* --- USER PROFILE MINI (TU DISEÑO SOLICITADO) --- */
+.user-section-wrapper { position: absolute; top: 20px; right: 40px; z-index: 200; }
+
+.user-profile-banner {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, var(--green-bright) -20%, var(--green-main) 50%, var(--green-dark) 120%);
+  padding: 6px 16px 6px 6px;
+  border-radius: 40px;
+  box-shadow: 0 8px 20px rgba(141, 198, 63, 0.3);
+  border: 1.5px solid rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  height: 38px;
+  transition: transform 0.2s ease;
+}
+
+.sidebar-content::-webkit-scrollbar { width: 4px; }
+.sidebar-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
+
+@keyframes auraFadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
