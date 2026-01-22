@@ -13,6 +13,8 @@ const poblacionEspecialRoutes = require('./src/routes/poblacionEspecialRoutes');
 const organizacionRoutes = require('./src/routes/organizacionRoutes');
 const tipoidentificacionRoutes = require('./src/routes/tipoIdentificacionRoutes'); 
 const etniaRoutes = require('./src/routes/etniaRoutes');
+const tipoAfiliadoRoutes = require('./src/routes/tipoAfiliadoRoutes');
+const municipioRoutes = require('./src/routes/municipioRoutes');
 
 const app = express();
 
@@ -33,6 +35,8 @@ app.use('/api/admin/poblacionespacial', poblacionEspecialRoutes);
 app.use('/api/admin/organizacion', organizacionRoutes);
 app.use('/api/admin/tipo-identificacion', tipoidentificacionRoutes); 
 app.use('/api/admin/etnia', etniaRoutes);
+app.use('/api/admin/tipo-afiliado', tipoAfiliadoRoutes);
+app.use('/api/admin/municipio', municipioRoutes);
 
 app.use('/api/admin', adminRoutes);
 app.use('/api/auth', authRoutes);

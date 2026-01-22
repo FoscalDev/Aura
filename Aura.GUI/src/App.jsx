@@ -11,6 +11,8 @@ import PoblacionEspecialPage from './pages/poblacionespecial/PoblacionEspecialPa
 import OrganizacionPage from './pages/organizacion/OrganizacionPage.jsx';
 import TipoIdentificacionPage from './pages/tipoidentificacion/TipoIdentificacionPage.jsx';
 import EtniaPage from './pages/etnia/EtniaPage.jsx';
+import TipoAfiliadoPage from './pages/tipoafiliado/TipoAfiliadoPage.jsx';
+import MunicipioPage from './pages/municipios/MunicipioPage.jsx';
 
 const GlobalFooter = () => (
   <footer className="aura-mini-footer">
@@ -230,6 +232,18 @@ if (isLoading) {
                       >
                         Etnia
                       </button>
+                      <button 
+                        className={`sub-nav-item ${tab === 'm-tipoafiliado' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-tipoafiliado')}
+                      >
+                        Tipo Afiliado
+                      </button>
+                        <button 
+                        className={`sub-nav-item ${tab === 'm-municipio' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-municipio')}
+                      >
+                        Municipio
+                      </button>
                     
                     
                     </div>
@@ -410,6 +424,16 @@ if (isLoading) {
               {tab === 'm-etnia' && userRole === 'ADMIN' && (
                 <div className="admin-view-wrapper fade-in">
                     <EtniaPage />
+                </div>
+            )}
+               {tab === 'm-tipoafiliado' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <TipoAfiliadoPage />
+                </div>
+            )}
+            {tab === 'm-municipio' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <MunicipioPage />
                 </div>
             )}
              
