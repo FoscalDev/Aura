@@ -15,6 +15,10 @@ import TipoAfiliadoPage from './pages/tipoafiliado/TipoAfiliadoPage.jsx';
 import MunicipioPage from './pages/municipios/MunicipioPage.jsx';
 import DecisionPrimeraInstanciaPage from './pages/decisionprimerainstancia/DecisionPrimeraInstanciaPage.jsx';
 import PaisPage from './pages/pais/PaisPage.jsx';
+import DecisionSegundaInstanciaPage from './pages/decisionsegundaInstancia/DecisionSegundaInstanciaPage.jsx';
+import CodigoProblemaJuridicoPage from './pages/codigoproblemajuridico/CodigoProblemaJuridicoPage.jsx';
+import MigrantePage from './pages/migrante/MigrantePage.jsx';
+import FuenteFinanciacionPage from './pages/FuenteFinanciacion/FuenteFinanciacionPage.jsx';
 
 const GlobalFooter = () => (
   <footer className="aura-mini-footer">
@@ -252,11 +256,35 @@ if (isLoading) {
                       >
                         Decision Primera Instancia
                       </button>
+                        <button 
+                        className={`sub-nav-item ${tab === 'm-decisionsegundaistancia' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-decisionsegundaistancia')}
+                      >
+                        Decision Segunda Instancia
+                      </button>
                          <button 
                         className={`sub-nav-item ${tab === 'm-pais' ? 'sub-active' : ''}`} 
                         onClick={() => setTab('m-pais')}
                       >
                         Pais
+                      </button>
+                         <button 
+                        className={`sub-nav-item ${tab === 'm-codigoproblemajuridico' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-codigoproblemajuridico')}
+                      >
+                        Codigo Problema Juridico
+                      </button>
+                       <button 
+                        className={`sub-nav-item ${tab === 'm-migrante' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-migrante')}
+                      >
+                        Migrante
+                      </button>
+                       <button 
+                        className={`sub-nav-item ${tab === 'm-fuentefinanciacion' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-fuentefinanciacion')}
+                      >
+                        Fuente Financiacion
                       </button>
                     
                     
@@ -455,9 +483,29 @@ if (isLoading) {
                     <DecisionPrimeraInstanciaPage />
                 </div>
             )}
+              {tab === 'm-decisionsegundaistancia' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <DecisionSegundaInstanciaPage />
+                </div>
+            )}
               {tab === 'm-pais' && userRole === 'ADMIN' && (
                 <div className="admin-view-wrapper fade-in">
                     <PaisPage />
+                </div>
+            )}
+             {tab === 'm-codigoproblemajuridico' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <CodigoProblemaJuridicoPage />
+                </div>
+            )}
+            {tab === 'm-migrante' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <MigrantePage />
+                </div>
+            )}
+            {tab === 'm-fuentefinanciacion' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <FuenteFinanciacionPage />
                 </div>
             )}
              
