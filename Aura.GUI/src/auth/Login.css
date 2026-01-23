@@ -411,38 +411,78 @@ body {
 /* ==========================================================================
    3. PERFIL DE USUARIO (VERDE LIMA)
    ========================================================================== */
-.user-section-wrapper { 
-  position: absolute; 
-  top: 30px; 
-  right: 40px; 
-  z-index: 200; 
-}
-
 .user-profile-banner {
   display: flex;
   align-items: center;
-  gap: 15px;
-  /* Verde Lima vibrante de la interfaz */
-    background: linear-gradient(135deg, #058cca, #06425e);
-
-  padding: 10px 22px 10px 10px;
+  gap: 12px;
+  /* Degradado principal del proyecto AURA */
+  background: linear-gradient(135deg, #021e79, #176943);
+  
+  padding: 6px 20px 6px 8px; /* Reducido para mayor elegancia */
   border-radius: 50px;
-  box-shadow: 0 10px 25px rgba(141, 198, 63, 0.4);
-  border: 2px solid rgba(255, 255, 255, 0.6);
+  
+  /* Sombra sutil basada en el azul oscuro, no en verde, para armonía */
+  box-shadow: 0 8px 20px rgba(23, 30, 105, 0.3); 
+  
+  /* Borde semi-transparente tipo "Glassmorphism" */
+  border: 1px solid rgba(255, 255, 255, 0.3);
   color: white;
   cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
 }
 
-.avatar-circle {
-  width: 40px;
-  height: 40px;
+.user-profile-banner:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(23, 30, 105, 0.4);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Contenedor del Avatar */
+.user-avatar-wrapper {
+  width: 38px;
+  height: 38px;
   background: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 900;
-  color: var(--green-dark);
+  font-weight: bold;
+  color: #171e69; /* El azul oscuro del degradado */
+  font-size: 14px;
+  border: 2px solid #38bdf8; /* Azul cian vibrante para resaltar */
+  box-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+}
+
+/* Información del Usuario */
+.user-info-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-name {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+}
+
+.user-role-tag {
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  color: #38bdf8; /* Cian claro para que resalte sobre el fondo oscuro */
+  letter-spacing: 1px;
+  margin-top: -2px;
+}
+
+/* Icono de flecha (dropdown) */
+.profile-chevron {
+  font-size: 12px;
+  opacity: 0.7;
+  margin-left: 4px;
 }
 
 /* ==========================================================================
@@ -541,4 +581,46 @@ body {
   border-radius: 30px;
   box-shadow: 0 20px 40px rgba(0,0,0,0.2);
   text-align: center;
+}
+
+/* ==========================================================================
+   COLOR DEL MENÚ (SIDEBAR) - VERSIÓN CLARA Y VIBRANTE
+   ========================================================================== */
+
+.sidebar {
+  width: var(--sidebar-width);
+  /* Mezcla: Azul Eléctrico -> Azul FOSCAL -> Toque de Verde Esmeralda */
+  background: linear-gradient(
+    165deg, 
+    #1a4f7c 0%,   /* Azul más luminoso (del centro del loader) */
+    #16406b 50%,  /* Azul institucional sólido */
+    #1b4332 100%  /* Verde esmeralda oscuro (más visible que el anterior) */
+  );
+  display: flex;
+  flex-direction: column;
+  padding: 40px 20px;
+  /* Sombra con un toque de azul para que no se vea gris */
+  box-shadow: 8px 0 30px rgba(13, 42, 69, 0.3);
+  z-index: 100;
+  position: relative;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: visible; 
+}
+
+/* Ajuste del botón toggle para esta paleta */
+.sidebar-closed .toggle-sidebar-btn {
+  right: -40px; 
+  background: #1a4f7c; /* Combina con la parte superior más clara */
+  color: white;
+}
+
+/* Opcional: Un brillo sutil en el borde derecho para dar claridad */
+.sidebar::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(255,255,255,0.1), transparent);
 }

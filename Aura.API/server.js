@@ -21,6 +21,12 @@ const decisionSegundaInstanciaRoutes = require('./src/routes/decisionSegundaInst
 const problemaJuridicoRoutes = require('./src/routes/codigoProblemaJuridicoRoutes');
 const migranteRoutes = require('./src/routes/migranteRoutes');
 const fuenteFinanciacionRoutes = require('./src/routes/fuenteFinanciacionRoutes');
+const causaDemoraRoutes = require('./src/routes/causaDemoraRoutes');
+const descCausaDemoraRoutes = require('./src/routes/descripcionCausaDemoraRoutes');
+const regimenAfiliacionRoutes = require('./src/routes/regimenAfiliacionRoutes');
+const diagnosticoRoutes = require('./src/routes/diagnosticoRoutes');
+const pretensionTutelaRoutes = require('./src/routes/pretensionTutelaRoutes');
+const codigoCausaAccionRoutes = require('./src/routes/codigoCausaAccionRoutes');
 
 const app = express();
 
@@ -49,6 +55,12 @@ app.use('/api/admin/decision-segunda-instancia', decisionSegundaInstanciaRoutes)
 app.use('/api/admin/codigo-problema-juridico', problemaJuridicoRoutes);
 app.use('/api/admin/migrante', migranteRoutes);
 app.use('/api/admin/fuente-financiacion', fuenteFinanciacionRoutes);
+app.use('/api/admin/causa-demora', causaDemoraRoutes);
+app.use('/api/admin/descripcion-causa-demora', descCausaDemoraRoutes);
+app.use('/api/admin/regimen-afiliacion', regimenAfiliacionRoutes);
+app.use('/api/admin/diagnostico', diagnosticoRoutes);
+app.use('/api/admin/pretension-tutela', pretensionTutelaRoutes);
+app.use('/api/admin/codigo-causa-accion-tutela',codigoCausaAccionRoutes)
 
 app.use('/api/admin', adminRoutes);
 app.use('/api/auth', authRoutes);

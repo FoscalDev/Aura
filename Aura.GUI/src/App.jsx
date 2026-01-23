@@ -19,6 +19,12 @@ import DecisionSegundaInstanciaPage from './pages/decisionsegundaInstancia/Decis
 import CodigoProblemaJuridicoPage from './pages/codigoproblemajuridico/CodigoProblemaJuridicoPage.jsx';
 import MigrantePage from './pages/migrante/MigrantePage.jsx';
 import FuenteFinanciacionPage from './pages/FuenteFinanciacion/FuenteFinanciacionPage.jsx';
+import CausaDemoraPage from './pages/causademora/CausaDemoraPage.jsx';
+import DescripcionCausaDemoraPage from './pages/descripcioncausademora/DescripcionCausaDemoraPage.jsx';
+import RegimenAfiliacionPage from './pages/regimenafiliacion/RegimenAfiliacionPage.jsx';
+import DiagnosticoPage from './pages/diagnostico/DiagnosticoPage.jsx';
+import PretensionTutelaPage from './pages/pretensiontutela/PretensionTutelaPage.jsx';
+import CodigoCausaAccionPage from './pages/codigocausaacciontutela/CodigoCausaAccionPage.jsx';
 
 const GlobalFooter = () => (
   <footer className="aura-mini-footer">
@@ -148,11 +154,12 @@ if (isLoading) {
         <button className="toggle-sidebar-btn" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
           {isSidebarOpen ? '❮' : '❯'}
         </button>
-        <div className="sidebar-content">
-          <div className="brand-section">
-            <div className="brand-logo">AURA</div>
-            <div className="brand-subtitle">FOSCAL</div>
-          </div>
+       <div className="sidebar-content">
+  <div className="brand-section">
+    <div className="brand-logo-container">
+      <img src="/logoaura.png" alt="AURA Logo" className="sidebar-logo-img" />
+    </div>
+  </div>
           
           <nav className="nav-menu">
             <button className={`nav-item ${tab === 'inicio' ? 'active' : ''}`} onClick={() => setTab('inicio')}>
@@ -286,8 +293,43 @@ if (isLoading) {
                       >
                         Fuente Financiacion
                       </button>
-                    
-                    
+                        <button 
+                        className={`sub-nav-item ${tab === 'm-causademora' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-causademora')}
+                      >
+                        Causa Demora
+                      </button>
+                      <button 
+                        className={`sub-nav-item ${tab === 'm-descripcioncausademora' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-descripcioncausademora')}
+                      >
+                       Descripción Causa Demora
+                      </button>
+                        <button 
+                        className={`sub-nav-item ${tab === 'm-regimenafiliacion' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-regimenafiliacion')}
+                      >
+                       Regimen Afiliación
+                      </button>
+                        <button 
+                        className={`sub-nav-item ${tab === 'm-diagnostico' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-diagnostico')}
+                      >
+                       Diagnóstico
+                      </button>
+                        <button 
+                        className={`sub-nav-item ${tab === 'm-pretensiontutelas' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-pretensiontutelas')}
+                      >
+                       Pretension Tutelas
+                      </button>
+                      <button 
+                        className={`sub-nav-item ${tab === 'm-codigocausaaccion' ? 'sub-active' : ''}`} 
+                        onClick={() => setTab('m-codigocausaaccion')}
+                      >
+                       Codigo Causa Accion Tutela
+                      </button>
+                                     
                     </div>
                   )}
                 </div>
@@ -350,7 +392,7 @@ if (isLoading) {
     <h1 className="hero-title">
       Hola, <span className="text-gradient-menu">{currentUserName}</span>
     </h1>
-    <p className="hero-subtitle">Bienvenido al ecosistema digital de FOSCAL.</p>
+    <p className="hero-subtitle">Bienvenido al ecosistema digital Tutelas FOSCAL.</p>
   </div>
 </header>
 
@@ -506,6 +548,36 @@ if (isLoading) {
             {tab === 'm-fuentefinanciacion' && userRole === 'ADMIN' && (
                 <div className="admin-view-wrapper fade-in">
                     <FuenteFinanciacionPage />
+                </div>
+            )}
+             {tab === 'm-causademora' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <CausaDemoraPage />
+                </div>
+            )}
+            {tab === 'm-descripcioncausademora' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <DescripcionCausaDemoraPage />
+                </div>
+            )}
+              {tab === 'm-regimenafiliacion' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <RegimenAfiliacionPage />
+                </div>
+            )}
+            {tab === 'm-diagnostico' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <DiagnosticoPage />
+                </div>
+            )}
+              {tab === 'm-pretensiontutelas' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <PretensionTutelaPage />
+                </div>
+            )}
+            {tab === 'm-codigocausaaccion' && userRole === 'ADMIN' && (
+                <div className="admin-view-wrapper fade-in">
+                    <CodigoCausaAccionPage />
                 </div>
             )}
              
