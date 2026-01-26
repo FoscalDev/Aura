@@ -910,8 +910,7 @@ body {
 }
 
 .aura-home-view .hero-subtitle {
-  color: rgba(255, 255, 255, 0.9) !important; /* Más opaco para leer mejor */
-  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9) !important; 
   margin-top: 12px;
 }
 
