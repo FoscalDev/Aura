@@ -915,7 +915,6 @@ body {
   margin-top: 12px;
 }
 
-/* Badge con un fondo un poco más sólido */
 .aura-home-view .hero-badge {
   background: rgba(255, 255, 255, 0.2) !important;
   backdrop-filter: blur(12px);
