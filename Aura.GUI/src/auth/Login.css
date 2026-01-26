@@ -416,7 +416,7 @@ body {
   align-items: center;
   gap: 12px;
   /* Degradado principal del proyecto AURA */
-  background: linear-gradient(135deg, #021e79, #176943);
+  background: linear-gradient(135deg, #021e79, #175035);
   
   padding: 6px 20px 6px 8px; /* Reducido para mayor elegancia */
   border-radius: 50px;

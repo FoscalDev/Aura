@@ -1,0 +1,318 @@
+/* =====================================================
+   CONFIGURACIÓN GENERAL Y COLORES AURA
+===================================================== */
+:root {
+    --aura-blue: #0054A6;
+    --aura-green-gradient: linear-gradient(135deg, #21bc21, #13725a);
+    --aura-glass-bg: rgba(255, 255, 255, 0.4);
+    --aura-border: rgba(255, 255, 255, 0.6);
+    --aura-shadow: 0 10px 20px rgba(0, 84, 166, 0.1);
+}
+
+/* =====================================================
+   CONTENEDOR PRINCIPAL (CON ANIMACIÓN)
+===================================================== */
+.mui-container {
+    padding: 30px !important;
+    animation: auraFadeIn 0.6s ease-out;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100% !important;
+    box-sizing: border-box;
+    background: #f0f4f8; /* Fondo suave para que resalte el cristal */
+    min-height: 100vh;
+}
+
+/* =====================================================
+   HEADER DEL PANEL
+===================================================== */
+.mui-header-flex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--aura-glass-bg);
+    padding: 20px 30px;
+    border-radius: 24px;
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--aura-border);
+}
+
+.mui-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--aura-blue);
+    margin: 0;
+    letter-spacing: -0.5px;
+}
+
+.mui-subtitle {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-top: 5px;
+}
+
+/* =====================================================
+   BARRA DE FILTROS (ESTILO MODERNO)
+===================================================== */
+.acta-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    background: var(--aura-glass-bg);
+    padding: 15px 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--aura-border);
+    flex-wrap: wrap;
+}
+
+.acta-search-input {
+    flex: 1;
+    min-width: 200px;
+    padding: 10px 16px;
+    border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    outline: none;
+    font-size: 14px;
+    transition: all 0.3s;
+}
+
+.acta-search-input:focus {
+    border-color: var(--aura-blue);
+    box-shadow: 0 0 0 3px rgba(0, 84, 166, 0.1);
+}
+
+.acta-date-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.acta-date-input {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: 1px solid #cbd5e1;
+    background: #ffffff;
+    color: #334155;
+    outline: none;
+}
+
+/* =====================================================
+   BOTONES AURA
+===================================================== */
+.mui-btn-primary {
+    background: var(--aura-green-gradient) !important;
+    color: #ffffff !important;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 20px rgba(0, 84, 166, 0.15) !important;
+}
+
+.mui-btn-primary:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 15px 30px rgba(0, 84, 166, 0.2) !important;
+}
+
+.btn-clear-filters {
+    background: #f1f5f9;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 10px;
+    cursor: pointer;
+    color: #64748b;
+    font-weight: 600;
+}
+
+/* =====================================================
+   TABLA DE CRISTAL (AURA TABLE)
+===================================================== */
+.mui-card {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(15px);
+    border-radius: 30px;
+    border: 1px solid var(--aura-border);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+}
+
+.mui-card-header {
+    background: rgba(0, 84, 166, 0.03);
+    padding: 18px 25px;
+    font-weight: 700;
+    color: #1e293b;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.table th {
+    padding: 15px 25px;
+    text-align: left;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #1e293b;
+    font-weight: 700;
+}
+
+.table td {
+    padding: 15px 25px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.03);
+    color: #475569;
+    font-size: 14px;
+}
+
+.table tr:hover {
+    background: rgba(0, 84, 166, 0.01);
+}
+
+.table-empty-msg {
+    text-align: center;
+    padding: 50px !important;
+    color: #94a3b8;
+    font-style: italic;
+}
+
+/* =====================================================
+   BADGES Y ROLES
+===================================================== */
+.badge-role {
+    padding: 6px 12px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 800;
+    display: inline-block;
+}
+
+.badge-role.admin {
+    background: rgba(141, 198, 63, 0.15) !important;
+    color: #0969d8 !important; /* Estilo azul/verde según tu CSS original */
+}
+
+.badge-role.tecnico {
+    background: rgba(34, 197, 94, 0.1);
+    color: #134e29;
+}
+
+/* =====================================================
+   BOTÓN OJO / EDITAR (CON ESTILO ACCIÓN)
+===================================================== */
+.orion-eye-btn {
+    all: unset;
+    border: none;
+    background: #f1f5f9;
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.orion-eye-btn:hover {
+    background: #e0f2fe;
+    transform: scale(1.1);
+    color: var(--aura-blue);
+}
+
+.orion-eye-btn::after {
+    content: "✏️";
+    font-size: 14px;
+}
+
+/* =====================================================
+   PAGINADO AURA
+===================================================== */
+.orion-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.orion-page-btn {
+    background: #ffffff !important;
+    border: 2px solid #8DC63F !important;
+    color: #8DC63F !important;
+    padding: 6px 16px !important;
+    border-radius: 10px !important;
+    font-weight: 700 !important;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.orion-page-btn:hover:not(:disabled) {
+    background: #8DC63F !important;
+    color: #ffffff !important;
+}
+
+.orion-page-btn:disabled {
+    border-color: #e2e8f0 !important;
+    color: #cbd5e1 !important;
+    cursor: not-allowed;
+}
+
+/* =====================================================
+   LOADERS Y ANIMACIONES
+===================================================== */
+.orion-table-loader {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 60px;
+    gap: 15px;
+    color: var(--aura-blue);
+}
+
+.orion-spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid rgba(0, 84, 166, 0.1);
+    border-top: 4px solid var(--aura-blue);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes auraFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Ajustes adicionales para IDs */
+.id-cell {
+    font-family: 'Monaco', 'Consolas', monospace;
+    font-size: 11px;
+    opacity: 0.6;
+}
+
+.font-bold {
+    font-weight: 700;
+    color: var(--aura-blue);
+}

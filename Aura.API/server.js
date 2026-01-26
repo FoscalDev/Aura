@@ -27,6 +27,7 @@ const regimenAfiliacionRoutes = require('./src/routes/regimenAfiliacionRoutes');
 const diagnosticoRoutes = require('./src/routes/diagnosticoRoutes');
 const pretensionTutelaRoutes = require('./src/routes/pretensionTutelaRoutes');
 const codigoCausaAccionRoutes = require('./src/routes/codigoCausaAccionRoutes');
+const datosGeneralesRoutes = require('./src/routes/datosGeneralesRoutes');
 
 const app = express();
 
@@ -61,6 +62,7 @@ app.use('/api/admin/regimen-afiliacion', regimenAfiliacionRoutes);
 app.use('/api/admin/diagnostico', diagnosticoRoutes);
 app.use('/api/admin/pretension-tutela', pretensionTutelaRoutes);
 app.use('/api/admin/codigo-causa-accion-tutela',codigoCausaAccionRoutes)
+app.use('/api/admin/datos-generales', datosGeneralesRoutes);
 
 app.use('/api/admin', adminRoutes);
 app.use('/api/auth', authRoutes);

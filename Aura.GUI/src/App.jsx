@@ -25,6 +25,7 @@ import RegimenAfiliacionPage from './pages/regimenafiliacion/RegimenAfiliacionPa
 import DiagnosticoPage from './pages/diagnostico/DiagnosticoPage.jsx';
 import PretensionTutelaPage from './pages/pretensiontutela/PretensionTutelaPage.jsx';
 import CodigoCausaAccionPage from './pages/codigocausaacciontutela/CodigoCausaAccionPage.jsx';
+import DatosGeneralesPage from './pages/datosgenerales/DatosGeneralesPage.jsx';
 
 const GlobalFooter = () => (
   <footer className="aura-mini-footer">
@@ -42,6 +43,7 @@ function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isMaestrosOpen, setIsMaestrosOpen] = useState(false); 
+  const [isTutelasOpen, setIsTutelasOpen] = useState(false); 
   const [imgError, setImgError] = useState(false);
 
   useEffect(() => {
@@ -99,7 +101,6 @@ if (isLoading) {
     <div className="aura-loader-container">
       <div className="aura-loader-content">
         <div className="aura-logo-viewport">
-          {/* Sistema de 5 anillos concéntricos para profundidad */}
           <div className="aura-ring ring-1"></div>
           <div className="aura-ring ring-2"></div>
           <div className="aura-ring ring-3"></div>
@@ -117,18 +118,14 @@ if (isLoading) {
         
         <div className="aura-text-group">
           <h2 className="aura-welcome-text">Iniciando Sistema</h2>
-          
           <div className="aura-progress-wrapper">
             <div className="aura-progress-bar-minimal">
-              {/* La animación ahora es puramente CSS para evitar errores de JS */}
               <div className="aura-progress-fill-auto"></div>
             </div>
-            
             <div className="aura-status-line">
               <span className="aura-pulse-dot"></span>
             </div>
           </div>
-          
           <p className="aura-loading-sub">Sincronizando con sistema Tutelas FOSCAL</p>
         </div>
       </div>
@@ -136,6 +133,7 @@ if (isLoading) {
     </div>
   );   
 }
+
   if (!isLoggedIn) {
     return (
       <div className="login-wrapper-fixed">
@@ -166,10 +164,31 @@ if (isLoading) {
               <span className="nav-icon"></span> <span className="nav-text">Inicio</span>
             </button>
             
+            {/* MÓDULO DE TUTELAS CON SUBMENÚ */}
             {(userRole === 'ADMIN' || userRole === 'TECNICO') && (
-              <button className={`nav-item ${tab === 'est' ? 'active' : ''}`} onClick={() => setTab('est')}>
-                <span className="nav-icon"></span> <span className="nav-text">Tutelas</span>
-              </button>
+              <div className={`nav-group ${isTutelasOpen ? 'group-open' : ''}`}>
+                <button 
+                  className={`nav-item ${tab.startsWith('t-') || tab === 'est' ? 'active' : ''}`} 
+                  onClick={() => setIsTutelasOpen(!isTutelasOpen)}
+                >
+                  <span className="nav-icon"></span> 
+                  <span className="nav-text">Tutelas</span>
+                  <span className={`arrow-submenu ${isTutelasOpen ? 'rotate' : ''}`}>▾</span>
+                </button>
+
+                {isTutelasOpen && (
+                  <div className="sub-menu fade-in">
+                   <button 
+                      className={`sub-nav-item ${tab === 'm-datosgenerales' ? 'sub-active' : ''}`} 
+                      onClick={() => setTab('m-datosgenerales')}
+                    >
+                      Datos Generales 
+
+                    </button>
+                    
+                  </div>
+                )}
+              </div>
             )}
 
             {userRole === 'ADMIN' && (
@@ -186,150 +205,29 @@ if (isLoading) {
                   
                   {isMaestrosOpen && (
                     <div className="sub-menu fade-in">
-                      <button 
-                        className={`sub-nav-item ${tab === 'm-juzgados' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-juzgados')}
-                      >
-                        Juzgados
-                      </button>
-                      
-                      <button 
-                        className={`sub-nav-item ${tab === 'm-accionados' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-accionados')}
-                      >
-                        Accionados
-                      </button>
-
-                      <button 
-                        className={`sub-nav-item ${tab === 'm-terminos' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-terminos')}
-                      >
-                        Términos
-                      </button>
-
-                      <button 
-                        className={`sub-nav-item ${tab === 'm-areas' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-areas')}
-                      >
-                        Áreas Destino
-                      </button>
-
-                      <button 
-                        className={`sub-nav-item ${tab === 'm-peticiones' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-peticiones')}
-                      >
-                        Peticiones
-                      </button>
-
-                      <button 
-                        className={`sub-nav-item ${tab === 'm-poblacionespecial' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-poblacionespecial')}
-                      >
-                        Poblacion Especial
-                      </button>
-                          <button 
-                        className={`sub-nav-item ${tab === 'm-organizacion' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-organizacion')}
-                      >
-                        Organización
-                      </button>
-                        <button 
-                        className={`sub-nav-item ${tab === 'm-tipoidentificacion' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-tipoidentificacion')}
-                      >
-                        Tipo Identificacion
-                      </button>
-                      <button 
-                        className={`sub-nav-item ${tab === 'm-etnia' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-etnia')}
-                      >
-                        Etnia
-                      </button>
-                      <button 
-                        className={`sub-nav-item ${tab === 'm-tipoafiliado' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-tipoafiliado')}
-                      >
-                        Tipo Afiliado
-                      </button>
-                        <button 
-                        className={`sub-nav-item ${tab === 'm-municipio' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-municipio')}
-                      >
-                        Municipio
-                      </button>
-                        <button 
-                        className={`sub-nav-item ${tab === 'm-decisionprimeraistancia' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-decisionprimeraistancia')}
-                      >
-                        Decision Primera Instancia
-                      </button>
-                        <button 
-                        className={`sub-nav-item ${tab === 'm-decisionsegundaistancia' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-decisionsegundaistancia')}
-                      >
-                        Decision Segunda Instancia
-                      </button>
-                         <button 
-                        className={`sub-nav-item ${tab === 'm-pais' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-pais')}
-                      >
-                        Pais
-                      </button>
-                         <button 
-                        className={`sub-nav-item ${tab === 'm-codigoproblemajuridico' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-codigoproblemajuridico')}
-                      >
-                        Codigo Problema Juridico
-                      </button>
-                       <button 
-                        className={`sub-nav-item ${tab === 'm-migrante' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-migrante')}
-                      >
-                        Migrante
-                      </button>
-                       <button 
-                        className={`sub-nav-item ${tab === 'm-fuentefinanciacion' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-fuentefinanciacion')}
-                      >
-                        Fuente Financiacion
-                      </button>
-                        <button 
-                        className={`sub-nav-item ${tab === 'm-causademora' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-causademora')}
-                      >
-                        Causa Demora
-                      </button>
-                      <button 
-                        className={`sub-nav-item ${tab === 'm-descripcioncausademora' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-descripcioncausademora')}
-                      >
-                       Descripción Causa Demora
-                      </button>
-                        <button 
-                        className={`sub-nav-item ${tab === 'm-regimenafiliacion' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-regimenafiliacion')}
-                      >
-                       Regimen Afiliación
-                      </button>
-                        <button 
-                        className={`sub-nav-item ${tab === 'm-diagnostico' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-diagnostico')}
-                      >
-                       Diagnóstico
-                      </button>
-                        <button 
-                        className={`sub-nav-item ${tab === 'm-pretensiontutelas' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-pretensiontutelas')}
-                      >
-                       Pretension Tutelas
-                      </button>
-                      <button 
-                        className={`sub-nav-item ${tab === 'm-codigocausaaccion' ? 'sub-active' : ''}`} 
-                        onClick={() => setTab('m-codigocausaaccion')}
-                      >
-                       Codigo Causa Accion Tutela
-                      </button>
-                                     
+                      <button className={`sub-nav-item ${tab === 'm-juzgados' ? 'sub-active' : ''}`} onClick={() => setTab('m-juzgados')}>Juzgados</button>
+                      <button className={`sub-nav-item ${tab === 'm-accionados' ? 'sub-active' : ''}`} onClick={() => setTab('m-accionados')}>Accionados</button>
+                      <button className={`sub-nav-item ${tab === 'm-terminos' ? 'sub-active' : ''}`} onClick={() => setTab('m-terminos')}>Términos</button>
+                      <button className={`sub-nav-item ${tab === 'm-areas' ? 'sub-active' : ''}`} onClick={() => setTab('m-areas')}>Áreas Destino</button>
+                      <button className={`sub-nav-item ${tab === 'm-peticiones' ? 'sub-active' : ''}`} onClick={() => setTab('m-peticiones')}>Peticiones</button>
+                      <button className={`sub-nav-item ${tab === 'm-poblacionespecial' ? 'sub-active' : ''}`} onClick={() => setTab('m-poblacionespecial')}>Poblacion Especial</button>
+                      <button className={`sub-nav-item ${tab === 'm-organizacion' ? 'sub-active' : ''}`} onClick={() => setTab('m-organizacion')}>Organización</button>
+                      <button className={`sub-nav-item ${tab === 'm-tipoidentificacion' ? 'sub-active' : ''}`} onClick={() => setTab('m-tipoidentificacion')}>Tipo Identificacion</button>
+                      <button className={`sub-nav-item ${tab === 'm-etnia' ? 'sub-active' : ''}`} onClick={() => setTab('m-etnia')}>Etnia</button>
+                      <button className={`sub-nav-item ${tab === 'm-tipoafiliado' ? 'sub-active' : ''}`} onClick={() => setTab('m-tipoafiliado')}>Tipo Afiliado</button>
+                      <button className={`sub-nav-item ${tab === 'm-municipio' ? 'sub-active' : ''}`} onClick={() => setTab('m-municipio')}>Municipio</button>
+                      <button className={`sub-nav-item ${tab === 'm-decisionprimeraistancia' ? 'sub-active' : ''}`} onClick={() => setTab('m-decisionprimeraistancia')}>Decision Primera Instancia</button>
+                      <button className={`sub-nav-item ${tab === 'm-decisionsegundaistancia' ? 'sub-active' : ''}`} onClick={() => setTab('m-decisionsegundaistancia')}>Decision Segunda Instancia</button>
+                      <button className={`sub-nav-item ${tab === 'm-pais' ? 'sub-active' : ''}`} onClick={() => setTab('m-pais')}>Pais</button>
+                      <button className={`sub-nav-item ${tab === 'm-codigoproblemajuridico' ? 'sub-active' : ''}`} onClick={() => setTab('m-codigoproblemajuridico')}>Codigo Problema Juridico</button>
+                      <button className={`sub-nav-item ${tab === 'm-migrante' ? 'sub-active' : ''}`} onClick={() => setTab('m-migrante')}>Migrante</button>
+                      <button className={`sub-nav-item ${tab === 'm-fuentefinanciacion' ? 'sub-active' : ''}`} onClick={() => setTab('m-fuentefinanciacion')}>Fuente Financiacion</button>
+                      <button className={`sub-nav-item ${tab === 'm-causademora' ? 'sub-active' : ''}`} onClick={() => setTab('m-causademora')}>Causa Demora</button>
+                      <button className={`sub-nav-item ${tab === 'm-descripcioncausademora' ? 'sub-active' : ''}`} onClick={() => setTab('m-descripcioncausademora')}>Descripción Causa Demora</button>
+                      <button className={`sub-nav-item ${tab === 'm-regimenafiliacion' ? 'sub-active' : ''}`} onClick={() => setTab('m-regimenafiliacion')}>Regimen Afiliación</button>
+                      <button className={`sub-nav-item ${tab === 'm-diagnostico' ? 'sub-active' : ''}`} onClick={() => setTab('m-diagnostico')}>Diagnóstico</button>
+                      <button className={`sub-nav-item ${tab === 'm-pretensiontutelas' ? 'sub-active' : ''}`} onClick={() => setTab('m-pretensiontutelas')}>Pretension Tutelas</button>
+                      <button className={`sub-nav-item ${tab === 'm-codigocausaaccion' ? 'sub-active' : ''}`} onClick={() => setTab('m-codigocausaaccion')}>Codigo Causa Accion Tutela</button>
                     </div>
                   )}
                 </div>
@@ -388,13 +286,13 @@ if (isLoading) {
     {tab === 'inicio' && (
       <div className="aura-home-view">
         <header className="innovative-hero">
-  <div className="hero-content">
-    <h1 className="hero-title">
-      Hola, <span className="text-gradient-menu">{currentUserName}</span>
-    </h1>
-    <p className="hero-subtitle">Bienvenido al ecosistema digital Tutelas FOSCAL.</p>
-  </div>
-</header>
+          <div className="hero-content">
+            <h1 className="hero-title">
+              Hola, <span className="text-gradient-menu">{currentUserName}</span>
+            </h1>
+            <p className="hero-subtitle">Bienvenido al ecosistema digital Tutelas FOSCAL.</p>
+          </div>
+        </header>
 
         {userRole === 'LECTOR' ? (
           <div className="access-denied-container">
@@ -408,7 +306,7 @@ if (isLoading) {
           </div>
         ) : (
           <div className="dashboard-grid-modern">
-            <div className="luxury-card" onClick={() => setTab('est')}>
+            <div className="luxury-card" onClick={() => {setTab('est'); setIsTutelasOpen(true);}}>
               <div className="card-visual icon-blue">📊</div>
               <div className="luxury-content">
                 <h3>Estadísticas Orion</h3>
@@ -446,143 +344,120 @@ if (isLoading) {
               </div>
             )}
           </div>
-                )}
-                <GlobalFooter />
-              </div>
-            )}
+        )}
+        <GlobalFooter />
+      </div>
+    )}
 
-            {/* VISTAS DE ADMINISTRACIÓN */}
-            {tab === 'admin' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <AdminPages />
-                </div>
-            )}
-
-            {/* VISTAS DE MAESTROS */}
-            {tab === 'm-juzgados' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <JuzgadosPage />
-                </div>
-            )}
-
-            {tab === 'm-accionados' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <AccionadosPage />
-                </div>
-            )}
-
-            {tab === 'm-terminos' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <TerminoRespuestaPage />
-                </div>
-            )}
-
-            {tab === 'm-areas' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <AreaDestinoPage />
-                </div>
-            )}
-
-            {tab === 'm-peticiones' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <PeticionesPage />
-                </div>
-            )}
-
-            {tab === 'm-poblacionespecial' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <PoblacionEspecialPage />
-                </div>
-            )}
-              {tab === 'm-organizacion' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <OrganizacionPage />
-                </div>
-            )}
-             
-              {tab === 'm-tipoidentificacion' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <TipoIdentificacionPage />
-                </div>
-            )}
-              {tab === 'm-etnia' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <EtniaPage />
-                </div>
-            )}
-               {tab === 'm-tipoafiliado' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <TipoAfiliadoPage />
-                </div>
-            )}
-            {tab === 'm-municipio' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <MunicipioPage />
-                </div>
-            )}
-             {tab === 'm-decisionprimeraistancia' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <DecisionPrimeraInstanciaPage />
-                </div>
-            )}
-              {tab === 'm-decisionsegundaistancia' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <DecisionSegundaInstanciaPage />
-                </div>
-            )}
-              {tab === 'm-pais' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <PaisPage />
-                </div>
-            )}
-             {tab === 'm-codigoproblemajuridico' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <CodigoProblemaJuridicoPage />
-                </div>
-            )}
-            {tab === 'm-migrante' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <MigrantePage />
-                </div>
-            )}
-            {tab === 'm-fuentefinanciacion' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <FuenteFinanciacionPage />
-                </div>
-            )}
-             {tab === 'm-causademora' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <CausaDemoraPage />
-                </div>
-            )}
-            {tab === 'm-descripcioncausademora' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <DescripcionCausaDemoraPage />
-                </div>
-            )}
-              {tab === 'm-regimenafiliacion' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <RegimenAfiliacionPage />
-                </div>
-            )}
-            {tab === 'm-diagnostico' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <DiagnosticoPage />
-                </div>
-            )}
-              {tab === 'm-pretensiontutelas' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <PretensionTutelaPage />
-                </div>
-            )}
-            {tab === 'm-codigocausaaccion' && userRole === 'ADMIN' && (
-                <div className="admin-view-wrapper fade-in">
-                    <CodigoCausaAccionPage />
-                </div>
-            )}
-             
-          </div>
+    {/* SECCIÓN DE VISTAS (ADMIN, MAESTROS, ETC) */}
+    {tab === 'est' && (userRole === 'ADMIN' || userRole === 'TECNICO') && (
+        <div className="admin-view-wrapper fade-in">
+            <div style={{padding: '20px'}}><h2>Módulo de Tutelas / Estadísticas</h2></div>
+            <GlobalFooter />
         </div>
+    )}
+
+    {tab === 'admin' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><AdminPages /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-juzgados' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><JuzgadosPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-accionados' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><AccionadosPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-terminos' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><TerminoRespuestaPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-areas' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><AreaDestinoPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-peticiones' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><PeticionesPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-poblacionespecial' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><PoblacionEspecialPage /><GlobalFooter /></div>
+    )}
+    
+    {tab === 'm-organizacion' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><OrganizacionPage /><GlobalFooter /></div>
+    )}
+    
+    {tab === 'm-tipoidentificacion' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><TipoIdentificacionPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-etnia' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><EtniaPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-tipoafiliado' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><TipoAfiliadoPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-municipio' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><MunicipioPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-decisionprimeraistancia' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><DecisionPrimeraInstanciaPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-decisionsegundaistancia' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><DecisionSegundaInstanciaPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-pais' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><PaisPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-codigoproblemajuridico' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><CodigoProblemaJuridicoPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-migrante' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><MigrantePage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-fuentefinanciacion' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><FuenteFinanciacionPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-causademora' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><CausaDemoraPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-descripcioncausademora' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><DescripcionCausaDemoraPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-regimenafiliacion' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><RegimenAfiliacionPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-diagnostico' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><DiagnosticoPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-pretensiontutelas' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><PretensionTutelaPage /><GlobalFooter /></div>
+    )}
+
+    {tab === 'm-codigocausaaccion' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><CodigoCausaAccionPage /><GlobalFooter /></div>
+    )}
+     {tab === 'm-datosgenerales' && userRole === 'ADMIN' && (
+        <div className="admin-view-wrapper fade-in"><DatosGeneralesPage /><GlobalFooter /></div>
+    )}
+             
+  </div>
+</div>
       </main>
     </div>
   );
