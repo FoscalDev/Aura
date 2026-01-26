@@ -152,23 +152,23 @@ if (isLoading) {
         <button className="toggle-sidebar-btn" onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
           {isSidebarOpen ? '❮' : '❯'}
         </button>
-       <div className="sidebar-content">
-  <div className="brand-section">
-    <div className="brand-logo-container">
-      <img src="/logoaura.png" alt="AURA Logo" className="sidebar-logo-img" />
-    </div>
-  </div>
+        <div className="sidebar-content">
+          <div className="brand-section">
+            <div className="brand-logo-container">
+              <img src="/logoaura.png" alt="AURA Logo" className="sidebar-logo-img" />
+            </div>
+          </div>
           
           <nav className="nav-menu">
             <button className={`nav-item ${tab === 'inicio' ? 'active' : ''}`} onClick={() => setTab('inicio')}>
               <span className="nav-icon"></span> <span className="nav-text">Inicio</span>
             </button>
             
-            {/* MÓDULO DE TUTELAS CON SUBMENÚ */}
+            {/* MÓDULO DE TUTELAS CON SUBMENÚ - APLICADO EFECTO SUB-ACTIVE */}
             {(userRole === 'ADMIN' || userRole === 'TECNICO') && (
               <div className={`nav-group ${isTutelasOpen ? 'group-open' : ''}`}>
                 <button 
-                  className={`nav-item ${tab.startsWith('t-') || tab === 'est' ? 'active' : ''}`} 
+                  className={`nav-item ${tab.startsWith('t-') || tab === 'est' || tab === 'm-datosgenerales' ? 'active' : ''}`} 
                   onClick={() => setIsTutelasOpen(!isTutelasOpen)}
                 >
                   <span className="nav-icon"></span> 
@@ -183,9 +183,7 @@ if (isLoading) {
                       onClick={() => setTab('m-datosgenerales')}
                     >
                       Datos Generales 
-
                     </button>
-                    
                   </div>
                 )}
               </div>
@@ -195,7 +193,7 @@ if (isLoading) {
               <>
                 <div className={`nav-group ${isMaestrosOpen ? 'group-open' : ''}`}>
                   <button 
-                    className={`nav-item ${tab.startsWith('m-') ? 'active' : ''}`} 
+                    className={`nav-item ${tab.startsWith('m-') && tab !== 'm-datosgenerales' ? 'active' : ''}`} 
                     onClick={() => setIsMaestrosOpen(!isMaestrosOpen)}
                   >
                     <span className="nav-icon"></span> 
@@ -349,7 +347,7 @@ if (isLoading) {
       </div>
     )}
 
-    {/* SECCIÓN DE VISTAS (ADMIN, MAESTROS, ETC) */}
+    {/* SECCIÓN DE VISTAS */}
     {tab === 'est' && (userRole === 'ADMIN' || userRole === 'TECNICO') && (
         <div className="admin-view-wrapper fade-in">
             <div style={{padding: '20px'}}><h2>Módulo de Tutelas / Estadísticas</h2></div>
@@ -452,10 +450,10 @@ if (isLoading) {
     {tab === 'm-codigocausaaccion' && userRole === 'ADMIN' && (
         <div className="admin-view-wrapper fade-in"><CodigoCausaAccionPage /><GlobalFooter /></div>
     )}
-     {tab === 'm-datosgenerales' && userRole === 'ADMIN' && (
+     {tab === 'm-datosgenerales' && (userRole === 'ADMIN' || userRole === 'TECNICO') && (
         <div className="admin-view-wrapper fade-in"><DatosGeneralesPage /><GlobalFooter /></div>
     )}
-             
+              
   </div>
 </div>
       </main>
