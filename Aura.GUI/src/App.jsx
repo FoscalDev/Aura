@@ -26,6 +26,8 @@ import DiagnosticoPage from './pages/diagnostico/DiagnosticoPage.jsx';
 import PretensionTutelaPage from './pages/pretensiontutela/PretensionTutelaPage.jsx';
 import CodigoCausaAccionPage from './pages/codigocausaacciontutela/CodigoCausaAccionPage.jsx';
 import DatosGeneralesPage from './pages/datosgenerales/DatosGeneralesPage.jsx';
+import CaracterizacionBeneficiarioPage from './pages/caracterizacionbeneficiario/CaracterizacionBeneficiarioPage.jsx';
+import GestionPage from './pages/gestion/GestiónPage.jsx';
 
 const GlobalFooter = () => (
   <footer className="aura-mini-footer">
@@ -146,6 +148,9 @@ if (isLoading) {
   const currentUserName = userData?.name || 'Usuario';
   const userRole = userData?.role || 'LECTOR';
 
+  // Lista de pestañas que pertenecen al módulo de Tutelas
+  const tutelasTabs = ['m-datosgenerales', 'm-caracterizacionbenefiario', 'm-gestion', 'est'];
+
   return (
     <div className={`app-container ${!isSidebarOpen ? 'sidebar-closed' : ''}`}>
       <aside className="sidebar">
@@ -164,11 +169,11 @@ if (isLoading) {
               <span className="nav-icon"></span> <span className="nav-text">Inicio</span>
             </button>
             
-            {/* MÓDULO DE TUTELAS CON SUBMENÚ - APLICADO EFECTO SUB-ACTIVE */}
+            {/* MÓDULO DE TUTELAS Y SUBMENÚ */}
             {(userRole === 'ADMIN' || userRole === 'TECNICO') && (
               <div className={`nav-group ${isTutelasOpen ? 'group-open' : ''}`}>
                 <button 
-                  className={`nav-item ${tab.startsWith('t-') || tab === 'est' || tab === 'm-datosgenerales' ? 'active' : ''}`} 
+                  className={`nav-item ${tutelasTabs.includes(tab) || tab.startsWith('t-') ? 'active' : ''}`} 
                   onClick={() => setIsTutelasOpen(!isTutelasOpen)}
                 >
                   <span className="nav-icon"></span> 
@@ -184,6 +189,18 @@ if (isLoading) {
                     >
                       Datos Generales 
                     </button>
+                    <button 
+                      className={`sub-nav-item ${tab === 'm-caracterizacionbenefiario' ? 'sub-active' : ''}`} 
+                      onClick={() => setTab('m-caracterizacionbenefiario')}
+                    >
+                      Caracterizacion Beneficiario 
+                    </button>
+                    <button 
+                      className={`sub-nav-item ${tab === 'm-gestion' ? 'sub-active' : ''}`} 
+                      onClick={() => setTab('m-gestion')}
+                    >
+                      Gestion
+                    </button>
                   </div>
                 )}
               </div>
@@ -193,7 +210,7 @@ if (isLoading) {
               <>
                 <div className={`nav-group ${isMaestrosOpen ? 'group-open' : ''}`}>
                   <button 
-                    className={`nav-item ${tab.startsWith('m-') && tab !== 'm-datosgenerales' ? 'active' : ''}`} 
+                    className={`nav-item ${tab.startsWith('m-') && !tutelasTabs.includes(tab) ? 'active' : ''}`} 
                     onClick={() => setIsMaestrosOpen(!isMaestrosOpen)}
                   >
                     <span className="nav-icon"></span> 
@@ -230,9 +247,6 @@ if (isLoading) {
                   )}
                 </div>
 
-                <button className={`nav-item ${tab === 'aud' ? 'active' : ''}`} onClick={() => setTab('aud')}>
-                  <span className="nav-icon"></span> <span className="nav-text">Auditoría</span>
-                </button>
                 <button className={`nav-item ${tab === 'admin' ? 'active' : ''}`} onClick={() => setTab('admin')}>
                   <span className="nav-icon"></span> <span className="nav-text">Administración</span>
                 </button>
@@ -288,7 +302,7 @@ if (isLoading) {
             <h1 className="hero-title">
               Hola, <span className="text-gradient-menu">{currentUserName}</span>
             </h1>
-            <p className="hero-subtitle">Bienvenido al ecosistema digital Tutelas FOSCAL.</p>
+            <p className="hero-subtitle">Bienvenidos al ecosistema digital Tutelas FOSCAL.</p>
           </div>
         </header>
 
@@ -453,7 +467,13 @@ if (isLoading) {
      {tab === 'm-datosgenerales' && (userRole === 'ADMIN' || userRole === 'TECNICO') && (
         <div className="admin-view-wrapper fade-in"><DatosGeneralesPage /><GlobalFooter /></div>
     )}
-              
+    {tab === 'm-caracterizacionbenefiario' && (userRole === 'ADMIN' || userRole === 'TECNICO') && (
+        <div className="admin-view-wrapper fade-in"><CaracterizacionBeneficiarioPage /><GlobalFooter /></div>
+    )}
+    {tab === 'm-gestion' && (userRole === 'ADMIN' || userRole === 'TECNICO') && (
+        <div className="admin-view-wrapper fade-in"><GestionPage /><GlobalFooter /></div>
+    )}
+               
   </div>
 </div>
       </main>
