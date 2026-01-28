@@ -121,11 +121,11 @@ const AdminDialogo = ({ isOpen, onClose, onGuardar, usuarioParaEditar }) => {
           </div>
 
           <div className="modal-actions">
-            <button type="button" className="btn-secondary" onClick={onClose}>
-              Cancelar
+            <button type="submit" className="btn-primary" title="Guardar">
+              {guardando === 'loading' ? '...' : '💾'}
             </button>
-            <button type="submit" className="btn-primary" disabled={guardando}>
-              {guardando ? 'Procesando...' : 'Guardar Cambios'}
+            <button type="button" className="btn-secondary" title="Cerrar" onClick={onClose}>
+              ✕
             </button>
           </div>
         </form>

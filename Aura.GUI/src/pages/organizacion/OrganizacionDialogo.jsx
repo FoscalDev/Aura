@@ -37,7 +37,6 @@ const OrganizacionDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar }) => 
       });
       if (response.ok) {
         const data = await response.json();
-        // Solo mostrar tipos activos
         setTiposIdentificacion(Array.isArray(data) ? data.filter(t => t.estado !== false) : []);
       }
     } catch (error) {
@@ -55,7 +54,6 @@ const OrganizacionDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar }) => 
   const handleSubmit = async (e) => {
     e.preventDefault();
     
-    // Validación básica antes de enviar
     if (!formData.tipoIdentificacion) {
       alert("Por favor seleccione un tipo de identificación");
       return;
@@ -63,7 +61,6 @@ const OrganizacionDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar }) => 
 
     setGuardando(true);
     try {
-      // Limpiamos los datos antes de enviar
       const datosAEnviar = {
         codigo: formData.codigo.trim().toUpperCase(),
         nombre: formData.nombre.trim(),
@@ -74,7 +71,6 @@ const OrganizacionDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar }) => 
 
       await onGuardar(datosAEnviar);
     } catch (error) {
-      // Si el error viene de la petición fallida
       console.error("Error al guardar organización:", error);
     } finally {
       setGuardando(false);
@@ -158,10 +154,12 @@ const OrganizacionDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar }) => 
             </div>
           </div>
 
-          <div className="modal-actions">
-            <button type="button" className="btn-secondary" onClick={onClose}>Cancelar</button>
-            <button type="submit" className="btn-primary" disabled={guardando}>
-              {guardando ? 'Guardando...' : 'Confirmar Registro'}
+           <div className="modal-actions">
+            <button type="submit" className="btn-primary" title="Guardar">
+              {guardando === 'loading' ? '...' : '💾'}
+            </button>
+            <button type="button" className="btn-secondary" title="Cerrar" onClick={onClose}>
+              ✕
             </button>
           </div>
         </form>

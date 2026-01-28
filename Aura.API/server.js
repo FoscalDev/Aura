@@ -18,7 +18,10 @@ const municipioRoutes = require('./src/routes/municipioRoutes');
 const decisionPrimeraInstanciaRoutes = require('./src/routes/decisionPrimeraInstanciaRoutes');
 const paisRoutes = require('./src/routes/paisRoutes');
 const decisionSegundaInstanciaRoutes = require('./src/routes/decisionSegundaInstanciaRoutes');
-const problemaJuridicoRoutes = require('./src/routes/codigoProblemaJuridicoRoutes');
+
+// --- CAMBIO AQUÍ: Nombre único para el catálogo ---
+const catProblemaJuridicoRoutes = require('./src/routes/codigoProblemaJuridicoRoutes');
+
 const migranteRoutes = require('./src/routes/migranteRoutes');
 const fuenteFinanciacionRoutes = require('./src/routes/fuenteFinanciacionRoutes');
 const causaDemoraRoutes = require('./src/routes/causaDemoraRoutes');
@@ -30,6 +33,9 @@ const codigoCausaAccionRoutes = require('./src/routes/codigoCausaAccionRoutes');
 const datosGeneralesRoutes = require('./src/routes/datosGeneralesRoutes');
 const caracterizacionRoutes = require('./src/routes/caracterizacionRoutes');
 const gestionTutelasRoutes = require('./src/routes/gestionTutelaRoutes.js');
+
+// --- CAMBIO AQUÍ: Nombre único para la gestión y ruta con punto ---
+const gestionProblemaJuridicoRoutes = require('./src/routes/problemaJuridico.routes.js');
 
 const app = express();
 
@@ -43,6 +49,7 @@ app.use(cors({
 
 app.use(express.json());
 
+// Middlewares de rutas
 app.use('/api/admin/areas-destino', areaDestinoRoutes);
 app.use('/api/admin/terminos-respuesta', terminoRespuestaRoutes);
 app.use('/api/admin/peticion', peticionesRoutes);
@@ -55,7 +62,10 @@ app.use('/api/admin/municipio', municipioRoutes);
 app.use('/api/admin/decision-primera-instancia', decisionPrimeraInstanciaRoutes);
 app.use('/api/admin/pais', paisRoutes);
 app.use('/api/admin/decision-segunda-instancia', decisionSegundaInstanciaRoutes);
-app.use('/api/admin/codigo-problema-juridico', problemaJuridicoRoutes);
+
+// --- CAMBIO AQUÍ: Usar la variable del catálogo ---
+app.use('/api/admin/codigo-problema-juridico', catProblemaJuridicoRoutes);
+
 app.use('/api/admin/migrante', migranteRoutes);
 app.use('/api/admin/fuente-financiacion', fuenteFinanciacionRoutes);
 app.use('/api/admin/causa-demora', causaDemoraRoutes);
@@ -63,29 +73,25 @@ app.use('/api/admin/descripcion-causa-demora', descCausaDemoraRoutes);
 app.use('/api/admin/regimen-afiliacion', regimenAfiliacionRoutes);
 app.use('/api/admin/diagnostico', diagnosticoRoutes);
 app.use('/api/admin/pretension-tutela', pretensionTutelaRoutes);
-app.use('/api/admin/codigo-causa-accion-tutela',codigoCausaAccionRoutes)
+app.use('/api/admin/codigo-causa-accion-tutela', codigoCausaAccionRoutes);
 app.use('/api/admin/datos-generales', datosGeneralesRoutes);
 app.use('/api/admin/caracterizacion-beneficiario', caracterizacionRoutes);
-app.use('/api/admin/gestion-tutelas', gestionTutelasRoutes); 
+app.use('/api/admin/gestion-tutelas', gestionTutelasRoutes);
+
+// --- CAMBIO AQUÍ: Usar la variable de gestión ---
+app.use('/api/admin/problema-juridico', gestionProblemaJuridicoRoutes);
 
 app.use('/api/admin', adminRoutes);
 app.use('/api/auth', authRoutes);
 
 app.get('/health', (req, res) => res.send('Aura API Operativa 🟢'));
 
-if (!process.env.MONGO_URI) {
-  console.error('❌ ERROR: MONGO_URI no definida en el archivo .env');
-  process.exit(1);
-}
-
+// Conexión DB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('🚀 Aura DB Conectada con éxito'))
-  .catch(err => {
-    console.error('❌ Error crítico al conectar a la DB:', err.message);
-  });
+  .catch(err => console.error('❌ Error crítico:', err.message));
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`💻 Servidor Aura corriendo en: http://localhost:${PORT}`);
-  console.log(`📡 Endpoint de autenticación: http://localhost:${PORT}/api/auth/google`);
 });

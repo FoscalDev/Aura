@@ -58,22 +58,12 @@ const TerminoRespuestaDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar })
             />
           </div>
 
-          <div className="modal-actions">
-            <button
-              type="button"
-              className="btn-secondary"
-              onClick={onClose}
-              disabled={guardando}
-            >
-              Cancelar
+           <div className="modal-actions">
+            <button type="submit" className="btn-primary" title="Guardar">
+              {guardando === 'loading' ? '...' : '💾'}
             </button>
-
-            <button
-              type="submit"
-              className="btn-primary"
-              disabled={guardando}
-            >
-              {guardando ? 'Procesando...' : 'Confirmar Registro'}
+            <button type="button" className="btn-secondary" title="Cerrar" onClick={onClose}>
+              ✕
             </button>
           </div>
         </form>

@@ -51,10 +51,12 @@ const TipoIdentificacionDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar 
             />
           </div>
 
-          <div className="modal-actions">
-            <button type="button" className="btn-secondary" onClick={handleClose}>Cancelar</button>
-            <button type="submit" className="btn-primary" disabled={guardando}>
-              {guardando ? 'Procesando...' : 'Confirmar Registro'}
+           <div className="modal-actions">
+            <button type="submit" className="btn-primary" title="Guardar">
+              {guardando === 'loading' ? '...' : '💾'}
+            </button>
+            <button type="button" className="btn-secondary" title="Cerrar" onClick={onClose}>
+              ✕
             </button>
           </div>
         </form>

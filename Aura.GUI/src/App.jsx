@@ -28,6 +28,7 @@ import CodigoCausaAccionPage from './pages/codigocausaacciontutela/CodigoCausaAc
 import DatosGeneralesPage from './pages/datosgenerales/DatosGeneralesPage.jsx';
 import CaracterizacionBeneficiarioPage from './pages/caracterizacionbeneficiario/CaracterizacionBeneficiarioPage.jsx';
 import GestionPage from './pages/gestion/GestiónPage.jsx';
+import ProblemaJuridicoPage from './pages/problemajuridico/ProblemaJuridicoPage.jsx';
 
 const GlobalFooter = () => (
   <footer className="aura-mini-footer">
@@ -200,6 +201,12 @@ if (isLoading) {
                       onClick={() => setTab('m-gestion')}
                     >
                       Gestion
+                    </button>
+                    <button 
+                      className={`sub-nav-item ${tab === 'm-problemajuridico' ? 'sub-active' : ''}`} 
+                      onClick={() => setTab('m-problemajuridico')}
+                    >
+                      Problema Juridico
                     </button>
                   </div>
                 )}
@@ -472,6 +479,9 @@ if (isLoading) {
     )}
     {tab === 'm-gestion' && (userRole === 'ADMIN' || userRole === 'TECNICO') && (
         <div className="admin-view-wrapper fade-in"><GestionPage /><GlobalFooter /></div>
+    )}
+    {tab === 'm-problemajuridico' && (userRole === 'ADMIN' || userRole === 'TECNICO') && (
+        <div className="admin-view-wrapper fade-in"><ProblemaJuridicoPage /><GlobalFooter /></div>
     )}
                
   </div>

@@ -240,11 +240,11 @@ const GestionDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar }) => {
           </div>
 
           <div className="modal-actions">
-            <button type="button" className="btn-secondary" onClick={onClose} disabled={status !== 'idle'}>
-              Cancelar
+            <button type="submit" className="btn-primary" title="Guardar">
+              {status === 'loading' ? '...' : '💾'}
             </button>
-            <button type="submit" className="btn-primary" disabled={status !== 'idle'}>
-              {status === 'loading' ? 'Guardando...' : 'Confirmar Registro'}
+            <button type="button" className="btn-secondary" title="Cerrar" onClick={onClose}>
+              ✕
             </button>
           </div>
         </form>

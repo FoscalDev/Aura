@@ -49,10 +49,12 @@ const AccionadosDialogo = ({ isOpen, onClose, onGuardar, dataParaEditar }) => {
             <label>Nombre Completo / Razón Social</label>
             <input name="nombre" value={formData.nombre} onChange={handleChange} required className="aura-input" />
           </div>
-          <div className="modal-actions">
-            <button type="button" className="btn-secondary" onClick={onClose}>Cancelar</button>
-            <button type="submit" className="btn-primary" disabled={guardando}>
-              {guardando ? 'Procesando...' : 'Confirmar Registro'}
+           <div className="modal-actions">
+            <button type="submit" className="btn-primary" title="Guardar">
+              {guardando === 'loading' ? '...' : '💾'}
+            </button>
+            <button type="button" className="btn-secondary" title="Cerrar" onClick={onClose}>
+              ✕
             </button>
           </div>
         </form>
