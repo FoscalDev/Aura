@@ -29,7 +29,6 @@ const Login = ({ onLogin }) => {
         throw new Error(data?.message || 'Error autenticando con el servidor');
       }
 
-      // ✅ SOLUCIÓN: Guardar el token para que AdminPages pueda usarlo
       if (data.token) {
         localStorage.setItem('token', data.token);
       }
