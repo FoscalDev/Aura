@@ -4,7 +4,7 @@ import ProblemaJuridicoDialogo from './ProblemaJuridicoDialogo.jsx';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
 const ENDPOINT = `${API_BASE_URL}/admin/problema-juridico`; 
-
+const DOWNLOAD_URL = `${API_BASE_URL}/admin/exportar-tutelas-txt`;
 const PAGE_SIZE = 5;
 
 const ProblemaJuridicoPage = () => {
@@ -24,6 +24,7 @@ const ProblemaJuridicoPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [loadingTable, setLoadingTable] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isDownloading, setIsDownloading] = useState(false);
 
   /* ================= OBTENER DATOS DEL BACKEND ================= */
   const fetchDatos = useCallback(async () => {
@@ -54,6 +55,37 @@ const ProblemaJuridicoPage = () => {
   useEffect(() => {
     fetchDatos();
   }, [fetchDatos]);
+
+  /* ================= LÓGICA DE DESCARGA ================= */
+  const handleDownloadTxt = async () => {
+    try {
+      setIsDownloading(true);
+      const token = localStorage.getItem('aura_token');
+      
+      const response = await fetch(DOWNLOAD_URL, {
+        method: 'GET',
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+
+      if (!response.ok) throw new Error("Error al descargar el archivo");
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'IVC170TIDS.txt'); 
+      document.body.appendChild(link);
+      link.click();
+      
+      link.parentNode.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Error en descarga:", error);
+      alert("No se pudo descargar el archivo.");
+    } finally {
+      setIsDownloading(false);
+    }
+  };
 
   /* ================= LÓGICA DE FILTRADO DINÁMICO ================= */
   useEffect(() => {
@@ -138,11 +170,23 @@ const ProblemaJuridicoPage = () => {
       <header className="mui-header-flex">
         <div className="title-group">
           <h1 className="mui-title">Maestro Problema Jurídico</h1>
-          <p className="mui-subtitle">Gestión de diagnósticos y causas de demora 2026</p>
+          <p className="mui-subtitle">Gestión de diagnósticos y causas de demora, FOSCAL 2026</p>
         </div>
-        <button className="mui-btn-primary" onClick={() => { setEditando(null); setIsModalOpen(true); }}>
-          + Nuevo Problema
-        </button>
+        
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button 
+            className="mui-btn-primary" 
+            style={{ backgroundColor: '#217346' }} 
+            onClick={handleDownloadTxt}
+            disabled={isDownloading}
+          >
+            {isDownloading ? 'Procesando...' : '↓ Descargar TXT'}
+          </button>
+
+          <button className="mui-btn-primary" onClick={() => { setEditando(null); setIsModalOpen(true); }}>
+            + Nuevo Problema
+          </button>
+        </div>
       </header>
 
       <div className="acta-toolbar">
@@ -185,7 +229,7 @@ const ProblemaJuridicoPage = () => {
           {(isLoading || loadingTable) ? (
             <div className="orion-table-loader">
               <div className="orion-spinner" />
-              <span>Sincronizando con Orion...</span>
+              <span>Sincronizando Aura...</span>
             </div>
           ) : (
             <>

@@ -1,32 +1,32 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import './DatosGeneralesPage.css'; 
-import DatosGeneralesDialogo from './DatosGeneralesDialogo.jsx';
+import './DatosAccionTutelaPage.css';
+import DatosAccionTutelaDialogo from './DatosAccionTutelaDialogo.jsx';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL;
-const ENDPOINT = `${API_BASE_URL}/admin/datos-generales`;
-const DOWNLOAD_URL = `${API_BASE_URL}/admin/exportar-tutelas-txt`; 
+const ENDPOINT = `${API_BASE_URL}/admin/datos-accion-tutela`; 
+const DOWNLOAD_URL = `${API_BASE_URL}/admin/exportar-tutelas-txt`;
 const PAGE_SIZE = 5;
 
-const DatosGeneralesPage = () => {
-  /* ================= DATA ================= */
+const DatosAccionTutelaPage = () => {
+  /* ================= ESTADOS DE DATOS ================= */
   const [records, setRecords] = useState([]); 
   const [filteredRecords, setFilteredRecords] = useState([]); 
   const [visibleRecords, setVisibleRecords] = useState([]); 
 
-  /* ================= UI & FILTERS ================= */
+  /* ================= UI & FILTROS ================= */
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editando, setEditando] = useState(null);
   const [filtroTexto, setFiltroTexto] = useState(""); 
   const [fechaInicio, setFechaInicio] = useState("");
   const [fechaFin, setFechaFin] = useState("");
 
-  /* ================= LOADERS & PAGINATION ================= */
+  /* ================= CARGA Y PAGINACIÓN ================= */
   const [isLoading, setIsLoading] = useState(false);
   const [loadingTable, setLoadingTable] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isDownloading, setIsDownloading] = useState(false); // Estado para la descarga
+  const [isDownloading, setIsDownloading] = useState(false);
 
-  /* ================= LOAD DATA ================= */
+  /* ================= OBTENER DATOS DEL BACKEND ================= */
   const fetchDatos = useCallback(async () => {
     try {
       setIsLoading(true);
@@ -46,7 +46,7 @@ const DatosGeneralesPage = () => {
         setFilteredRecords(sorted); 
       }
     } catch (error) {
-      console.error("Error cargando datos:", error);
+      console.error("Error cargando datos de tutela:", error);
     } finally {
       setIsLoading(false);
     }
@@ -87,7 +87,7 @@ const DatosGeneralesPage = () => {
     }
   };
 
-  /* ================= LOGICA DE FILTRO CORREGIDA ================= */
+  /* ================= LÓGICA DE FILTRADO DINÁMICO ================= */
   useEffect(() => {
     setLoadingTable(true);
     const timeoutId = setTimeout(() => {
@@ -95,23 +95,28 @@ const DatosGeneralesPage = () => {
 
       if (filtroTexto) {
         const search = filtroTexto.toLowerCase();
-        result = result.filter(r => 
-          r.juzgado?.toLowerCase().includes(search) ||
-          r.accionado?.toLowerCase().includes(search) ||
-          r.organizacion?.toLowerCase().includes(search) ||
-          r._id?.toLowerCase().includes(search)
-        );
+        result = result.filter(r => {
+          const beneficiarioId = r.numeroIdentificacionBeneficiario?.toString().toLowerCase() || "";
+          const radicado = r.numeroRadicacionTutela?.toLowerCase() || "";
+          const idInterno = r._id?.toLowerCase() || "";
+
+          return (
+            beneficiarioId.includes(search) ||
+            radicado.includes(search) ||
+            idInterno.includes(search)
+          );
+        });
       }
 
       if (fechaInicio) {
         const fi = new Date(fechaInicio);
-        result = result.filter(r => r.fechaFallo && new Date(r.fechaFallo) >= fi);
+        result = result.filter(r => r.fechaRadicacionTutela && new Date(r.fechaRadicacionTutela) >= fi);
       }
 
       if (fechaFin) {
         const ff = new Date(fechaFin);
         ff.setHours(23, 59, 59);
-        result = result.filter(r => r.fechaFallo && new Date(r.fechaFallo) <= ff);
+        result = result.filter(r => r.fechaRadicacionTutela && new Date(r.fechaRadicacionTutela) <= ff);
       }
 
       setFilteredRecords(result);
@@ -122,7 +127,7 @@ const DatosGeneralesPage = () => {
     return () => clearTimeout(timeoutId);
   }, [filtroTexto, fechaInicio, fechaFin, records]);
 
-  /* ================= PAGINACIÓN DINÁMICA ================= */
+  /* ================= CONTROL DE PAGINACIÓN ================= */
   useEffect(() => {
     const start = (currentPage - 1) * PAGE_SIZE;
     const end = start + PAGE_SIZE;
@@ -131,19 +136,19 @@ const DatosGeneralesPage = () => {
 
   const totalPages = Math.ceil(filteredRecords.length / PAGE_SIZE);
 
-  /* ================= HANDLERS ================= */
-  const handleGuardar = async (datosFormulario) => {
+  /* ================= GUARDAR / EDITAR ================= */
+  const handleGuardar = async (payload) => {
     const token = localStorage.getItem('aura_token');
     const url = editando ? `${ENDPOINT}/${editando._id}` : ENDPOINT;
     
     try {
       const response = await fetch(url, {
         method: editando ? 'PUT' : 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
+        headers: { 
+          'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${token}` 
         },
-        body: JSON.stringify(datosFormulario)
+        body: JSON.stringify(payload)
       });
 
       if (response.ok) {
@@ -154,6 +159,7 @@ const DatosGeneralesPage = () => {
       }
     } catch (error) {
       console.error("Error al guardar:", error);
+      return false;
     }
   };
 
@@ -161,10 +167,11 @@ const DatosGeneralesPage = () => {
     <div className="mui-container">
       <header className="mui-header-flex">
         <div className="title-group">
-          <h1 className="mui-title">Datos Generales - Tutelas</h1>
-          <p className="mui-subtitle">Gestión integral de fallos y procesos, FOSCAL 2026</p>
+          <h1 className="mui-title">Datos Acción Tutela</h1>
+          <p className="mui-subtitle">Gestión de expedientes y radicados, FOSCAL 2026</p>
         </div>
 
+        {/* CONTENEDOR DE BOTONES */}
         <div style={{ display: 'flex', gap: '10px' }}>
           <button 
             className="mui-btn-primary" 
@@ -181,11 +188,10 @@ const DatosGeneralesPage = () => {
         </div>
       </header>
 
-      {/* FILTROS */}
       <div className="acta-toolbar">
         <input
           className="acta-search-input"
-          placeholder="Buscar por juzgado, accionado, organización..."
+          placeholder="Buscar por ID, Radicado o Beneficiario..."
           value={filtroTexto}
           onChange={e => setFiltroTexto(e.target.value)}
         />
@@ -231,12 +237,12 @@ const DatosGeneralesPage = () => {
                   <thead>
                     <tr>
                       <th>Acciones</th>
-                      <th>Estado</th>
-                      <th>Juzgado</th>
-                      <th>Accionado</th>
-                      <th>Fecha Fallo</th>
-                      <th>Tipo Fallo</th>
-                      <th>Organización</th>
+                      <th>Radicado Tutela</th>
+                      <th>ID Beneficiario</th>
+                      <th>No. Doc Entidad</th>
+                      <th>Impugnación</th>
+                      <th>Desacato</th>
+                      <th>Fecha Radicación</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -246,36 +252,31 @@ const DatosGeneralesPage = () => {
                           <td>
                             <button 
                                 className="orion-eye-btn" 
-                                onClick={() => { setEditando(item); setIsModalOpen(true); }} 
+                                title="Editar"
+                                onClick={() => { 
+                                  setEditando(item); 
+                                  setIsModalOpen(true); 
+                                }} 
                             />
                           </td>
+                          <td className="font-bold">
+                            {item.numeroRadicacionTutela || 'N/A'}
+                          </td>
+                          <td>{item.numeroIdentificacionBeneficiario || 'N/A'}</td>
+                          <td>{item.numeroDocumentoEntidad || 'N/A'}</td>
                           <td>
-                            <span style={{ 
-                              padding: '4px 8px', 
-                              borderRadius: '12px', 
-                              fontSize: '0.75rem', 
-                              fontWeight: 'bold',
-                              backgroundColor: item.estado ? '#e6f4ea' : '#fce8e6',
-                              color: item.estado ? '#1e7e34' : '#d93025'
-                            }}>
-                              {item.estado ? 'ACTIVO' : 'INACTIVO'}
+                            <span className={`badge ${item.impugnacion === 'SI' ? 'bg-success' : 'bg-secondary'}`}>
+                              {item.impugnacion || 'NO'}
                             </span>
                           </td>
-                          <td className="font-bold">{item.juzgado || 'N/A'}</td>
-                          <td>{item.accionado || 'N/A'}</td>
-                          <td>{item.fechaFallo ? new Date(item.fechaFallo).toLocaleDateString() : 'N/A'}</td>
-                          <td>
-                            <span className={`badge-role ${item.tipoFallo === 'ADVERSO' ? 'admin' : 'tecnico'}`}>
-                              {item.tipoFallo || 'PENDIENTE'}
-                            </span>
-                          </td>
-                          <td>{item.organizacion || 'N/A'}</td>
+                          <td>{item.incidenteDesacato || 'NO'}</td>
+                          <td>{item.fechaRadicacionTutela ? new Date(item.fechaRadicacionTutela).toLocaleDateString() : 'N/A'}</td>
                         </tr>
                       ))
                     ) : (
                       <tr>
                         <td colSpan="7" className="table-empty-msg">
-                          No hay datos disponibles para mostrar.
+                          No hay registros de tutela encontrados.
                         </td>
                       </tr>
                     )}
@@ -321,7 +322,7 @@ const DatosGeneralesPage = () => {
       </div>
 
       {isModalOpen && (
-        <DatosGeneralesDialogo 
+        <DatosAccionTutelaDialogo 
           isOpen={isModalOpen} 
           onClose={() => {setIsModalOpen(false); setEditando(null);}} 
           onGuardar={handleGuardar} 
@@ -332,4 +333,4 @@ const DatosGeneralesPage = () => {
   );
 };
 
-export default DatosGeneralesPage;
+export default DatosAccionTutelaPage;

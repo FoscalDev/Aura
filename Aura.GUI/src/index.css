@@ -938,3 +938,75 @@ body {
   background: radial-gradient(circle, rgba(173, 255, 47, 0.15) 0%, transparent 70%);
   pointer-events: none;
 }
+/* Contenedor principal */
+.access-denied-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 400px;
+  width: 100%;
+  padding: 40px;
+}
+
+/* Tarjeta con efecto de movimiento inicial */
+.access-denied-card {
+  background-color: #ebebeb; /* Gris de la foto */
+  border-radius: 24px;
+  padding: 60px 40px;
+  max-width: 550px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  
+  /* --- EFECTO DE MOVIMIENTO --- */
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Movimiento tipo rebote suave */
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+  cursor: default;
+}
+
+/* Efecto al pasar el mouse (HOVER) */
+.access-denied-card:hover {
+  transform: translateY(-10px); /* Se eleva 10 píxeles */
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15); /* La sombra se vuelve más profunda */
+}
+
+/* Línea roja superior que también reacciona */
+.denied-header-line {
+  position: absolute;
+  top: 0;
+  left: 30px;
+  right: 30px;
+  height: 6px;
+  background-color: #e53e3e;
+  border-bottom-left-radius: 8px;
+  border-bottom-right-radius: 8px;
+  transition: height 0.3s ease;
+}
+
+.access-denied-card:hover .denied-header-line {
+  height: 8px; /* La línea crece un poco al pasar el mouse */
+}
+
+/* Animación para el icono del candado */
+.denied-icon-wrapper svg {
+  transition: transform 0.5s ease;
+}
+
+.access-denied-card:hover .denied-icon-wrapper svg {
+  transform: scale(1.1) rotate(-5deg); /* El candado crece y se inclina sutilmente */
+}
+
+/* Resto de estilos base */
+.denied-title {
+  color: #1a202c;
+  font-size: 32px;
+  font-weight: 800;
+  margin-top: 10px;
+}
+
+.denied-text {
+  color: #4a5568;
+  font-size: 18px;
+  margin: 15px 0;
+}
