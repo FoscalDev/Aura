@@ -445,13 +445,8 @@ const mensual = meses.map((mes, idx) => ({
                 </button>
                 {isTutelasOpen && (
                   <div className="sub-menu fade-in">
-                    <button className={`sub-nav-item ${tab === 'm-datosgenerales' ? 'sub-active' : ''}`} onClick={() => setTab('m-datosgenerales')}>Datos Generales</button>
-                    <button className={`sub-nav-item ${tab === 'm-caracterizacionbenefiario' ? 'sub-active' : ''}`} onClick={() => setTab('m-caracterizacionbenefiario')}>Caracterización Beneficiario</button>
-                    <button className={`sub-nav-item ${tab === 'm-gestion' ? 'sub-active' : ''}`} onClick={() => setTab('m-gestion')}>Gestión</button>
-                    <button className={`sub-nav-item ${tab === 'm-problemajuridico' ? 'sub-active' : ''}`} onClick={() => setTab('m-problemajuridico')}>Problema Jurídico</button>
-                    <button className={`sub-nav-item ${tab === 'm-datosacciontutela' ? 'sub-active' : ''}`} onClick={() => setTab('m-datosacciontutela')}>Datos Acción Tutela</button>
-                    <button className={`sub-nav-item ${tab === 'm-causajuridica' ? 'sub-active' : ''}`} onClick={() => setTab('m-causajuridica')}>Causa Jurídica</button>
-                    <button className={`sub-nav-item ${tab === 'm-pretensiones' ? 'sub-active' : ''}`} onClick={() => setTab('m-pretensiones')}>Pretensiones</button>
+                    <button className={`sub-nav-item ${tab === 'm-datosgenerales' ? 'sub-active' : ''}`} onClick={() => setTab('m-datosgenerales')}>Tutelas</button>
+                 
                   </div>
                 )}
               </div>
@@ -632,12 +627,6 @@ const mensual = meses.map((mes, idx) => ({
             
             {/* VISTAS DE TUTELAS */}
             {tab === 'm-datosgenerales' && (userRole === 'ADMIN' || userRole === 'TECNICO') && <div className="view-wrapper fade-in"><DatosGeneralesPage /><GlobalFooter /></div>}
-            {tab === 'm-caracterizacionbenefiario' && (userRole === 'ADMIN' || userRole === 'TECNICO') && <div className="view-wrapper fade-in"><CaracterizacionBeneficiarioPage /><GlobalFooter /></div>}
-            {tab === 'm-gestion' && (userRole === 'ADMIN' || userRole === 'TECNICO') && <div className="view-wrapper fade-in"><GestionPage /><GlobalFooter /></div>}
-            {tab === 'm-problemajuridico' && (userRole === 'ADMIN' || userRole === 'TECNICO') && <div className="view-wrapper fade-in"><ProblemaJuridicoPage /><GlobalFooter /></div>}
-            {tab === 'm-datosacciontutela' && (userRole === 'ADMIN' || userRole === 'TECNICO') && <div className="view-wrapper fade-in"><DatosAccionTutelaPage /><GlobalFooter /></div>}
-            {tab === 'm-causajuridica' && (userRole === 'ADMIN' || userRole === 'TECNICO') && <div className="view-wrapper fade-in"><CausasJuridicasPage /><GlobalFooter /></div>}
-            {tab === 'm-pretensiones' && (userRole === 'ADMIN' || userRole === 'TECNICO') && <div className="view-wrapper fade-in"><PretensionesPage /><GlobalFooter /></div>}
           </div>
         </div>
       </main>

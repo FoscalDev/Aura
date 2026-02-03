@@ -34,6 +34,7 @@ const gestionProblemaJuridicoRoutes = require('./src/routes/problemaJuridico.rou
 const datosAccionTutelaRoutes = require('./src/routes/datosAccionTutelaRoutes.js');
 const causasJuridicasRoutes = require('./src/routes/causasJuridicasRoutes.js');
 const pretensionesTutelaModuloRoutes = require('./src/routes/pretensionesTutelaModuloRoutes.js');
+const tutelaRoutes = require('./src/routes/tutelaRoutes.js');
 
 
 const app = express();
@@ -78,7 +79,7 @@ app.use('/api/admin/datos-accion-tutela', datosAccionTutelaRoutes);
 app.use('/api/admin/causasjuridicas', causasJuridicasRoutes);
 app.use('/api/admin/pretensionestutelamodulo',pretensionesTutelaModuloRoutes);
 app.use("/api/admin", require("./src/routes/exportarTutelasTxt"));
-
+app.use('/api/admin/tutelas', tutelaRoutes); 
 
 app.use('/api/admin', adminRoutes);
 app.use('/api/auth', authRoutes);
