@@ -1,0 +1,23 @@
+services:
+  backend:
+    build: ./Aura.API
+    container_name: aura-api
+    ports:
+      - "5001:5000"  
+    env_file:
+      - ./Aura.API/.env
+    volumes:
+      - ./Aura.API:/app
+      - /app/node_modules
+    restart: always
+
+  frontend:
+    build: ./Aura.GUI
+    container_name: aura-gui
+    ports:
+      - "5173:80"   
+    env_file:
+      - ./Aura.GUI/.env
+    depends_on:
+      - backend
+    restart: always

@@ -84,8 +84,7 @@ app.use('/api/admin/tutelas', tutelaRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/auth', authRoutes);
 
-app.get('/health', (req, res) => res.send('Aura API Operativa 🟢'));
-
+app.get('/', (req, res) => res.send('API de Aura funcionando 🚀'));
 // Conexión DB
 mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log('🚀 Aura DB Conectada con éxito'))
